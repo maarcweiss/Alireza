@@ -3,6 +3,14 @@ import {
   bscChain,
   polyChain,
   ethChain,
+  avaxChain,
+  fantomChain,
+  oasisChain,
+  celoChain,
+  harmonyChain,
+  cronosChain,
+  velasChain,
+  moonChain,
   hardChain,
   bscTest,
   ethTest,
@@ -25,20 +33,42 @@ export default function ConnectChain() {
     var eth = "Ethereum";
     var bsc = "Binance Smart Chain";
     var pol = "Polygon";
+    var avax = "Avalanche Network";
+    var ftm = "Fantom Opera";
+    var rose = "Emerald Mainnet";
+    var one = "Harmony";
+    var celo = "Celo";
+    var cro = "Cronos";
+    var vlx = "Velas Network ";
+    var movr = "Moonriver";
     var mum = "Mumbai";
     var bsct = "Bsctest";
     var goe = "Goerli";
     var hard = "Hardhat";
     var init = "Set Network";
+
     if (selectedValue == eth) {
       return <h3>Ethereum</h3>;
-      //return <img src="../public/ethereumlogo.png" width={"60px"} />;
     } else if (selectedValue == bsc) {
       return <h3>Binance Smart Chain</h3>;
-      //return <img src="../public/bsc.png" width={"60px"} />;
     } else if (selectedValue == pol) {
       return <h3>Polygon</h3>;
-      //return <img src="../public/polygonwhite.png" width={"60px"} />;
+    } else if (selectedValue == avax) {
+      return <h3>Avalanche Network</h3>;
+    } else if (selectedValue == ftm) {
+      return <h3>Fantom Opera</h3>;
+    } else if (selectedValue == rose) {
+      return <h3>Emerald Mainnet</h3>;
+    } else if (selectedValue == celo) {
+      return <h3>Celo</h3>;
+    } else if (selectedValue == one) {
+      return <h3>Harmony</h3>;
+    } else if (selectedValue == cro) {
+      return <h3>Cronos</h3>;
+    } else if (selectedValue == vlx) {
+      return <h3>Velas Network</h3>;
+    } else if (selectedValue == movr) {
+      return <h3>Moonriver</h3>;
     } else if (selectedValue == mum) {
       return <h3>Mumbai Testnet</h3>;
     } else if (selectedValue == bsct) {
@@ -55,15 +85,25 @@ export default function ConnectChain() {
       );
     }
   });
+
   //function that enables the connection to the wallet, ets the value in text of whatever the user clocked and compare that.
   async function enableChain() {
     var bsc = "Binance Smart Chain";
     var poly = "Polygon";
     var eth = "Ethereum";
+    var avax = "Avalanche Network";
+    var ftm = "Fantom Opera";
+    var rose = "Emerald Mainnet";
+    var one = "Harmony";
+    var celo = "Celo";
+    var cro = "Cronos";
+    var vlx = "Velas Network";
+    var movr = "Moonriver";
     var mum = "Mumbai";
     var bsct = "Bsctest";
     var goe = "Goerli";
     var hard = "Hardhat";
+
     //depending on the selcted value connect to x blockchain
     if (bsc == selectedValue) {
       bscChain();
@@ -71,6 +111,22 @@ export default function ConnectChain() {
       polyChain();
     } else if (eth == selectedValue) {
       ethChain();
+    } else if (avax == selectedValue) {
+      avaxChain();
+    } else if (rose == selectedValue) {
+      oasisChain();
+    } else if (ftm == selectedValue) {
+      fantomChain();
+    } else if (celo == selectedValue) {
+      celoChain();
+    } else if (one == selectedValue) {
+      harmonyChain();
+    } else if (cro == selectedValue) {
+      cronosChain();
+    } else if (vlx == selectedValue) {
+      velasChain();
+    } else if (movr == selectedValue) {
+      moonChain();
     } else if (hard == selectedValue) {
       hardChain();
     } else if (bsct == selectedValue) {
@@ -81,6 +137,7 @@ export default function ConnectChain() {
       polyTest();
     }
   }
+
   //enable the chain that is selected
   useEffect(() => {
     enableChain();
@@ -88,13 +145,13 @@ export default function ConnectChain() {
 
   //This html creates the button. Create the dropdown from nextUI. And finally create also the menu
   return (
-    <Col css={{ marginTop: "$6" }}>
+    <Col css={{ marginTop: "$5" }}>
       <Dropdown>
         <Dropdown.Button
           aria-label="Connect Wallet"
           flat
           style={{
-            background: "#00000070",
+            background: "#00000090",
             boxShadow: "0px 0px 4px #ffffff",
             fontFamily: "SF Pro Display",
             fontWeight: "500",
@@ -107,7 +164,7 @@ export default function ConnectChain() {
         </Dropdown.Button>
         <Dropdown.Menu
           css={{
-            backgroundColor: "#ffffff30",
+            backgroundColor: "#808080",
           }}
           aria-label="Single selection actions"
           color="secondary"
@@ -120,19 +177,78 @@ export default function ConnectChain() {
           textValue={selected}
         >
           <Dropdown.Item textValue="Ethereum" key="Ethereum">
-            <img src="ethereumlogo.png" width={"20px"} />
+            <img
+              src="ethereumlogo.png"
+              style={{ width: "15px", marginRight: "10px" }}
+            />
             Ethereum
           </Dropdown.Item>
           <Dropdown.Item
             textValue="Binance Smart Chain"
             key="Binance Smart Chain"
           >
-            <img src="bsc.png" width={"20px"} />
+            <img src="bsc.png" style={{ width: "20px", marginRight: "10px" }} />
             Binance Smart Chain
           </Dropdown.Item>
           <Dropdown.Item textValue="Polygon" key="Polygon">
-            <img src="polygonwhite.png" width={"20px"} />
+            <img
+              src="polygonwhite.png"
+              style={{ width: "20px", marginRight: "10px" }}
+            />
             Polygon
+          </Dropdown.Item>
+          <Dropdown.Item textValue="Avalanche Network" key="Avalanche Network">
+            <img
+              src="avax.jpg"
+              style={{ width: "20px", marginRight: "10px" }}
+            />
+            Avalanche
+          </Dropdown.Item>
+          <Dropdown.Item textValue="Fantom Opera" key="Fantom Opera">
+            <img src="ftm.png" style={{ width: "20px", marginRight: "10px" }} />
+            Fantom
+          </Dropdown.Item>
+          <Dropdown.Item textValue="Velas Network" key="Velas Network">
+            <img
+              style={{ width: "20px", marginRight: "10px" }}
+              src="velas.png"
+            />
+            Velas Network
+          </Dropdown.Item>
+          <Dropdown.Item textValue="Emerald Mainnet" key="Emerald Mainnet">
+            <img
+              style={{ width: "20px", marginRight: "10px" }}
+              src="rose.png"
+            />
+            Oasis Network
+          </Dropdown.Item>
+          <Dropdown.Item textValue="Harmony" key="Harmony">
+            <img
+              style={{ width: "20px", marginRight: "10px" }}
+              src="harmony.png"
+            />
+            Harmony
+          </Dropdown.Item>
+          <Dropdown.Item textValue="Celo" key="Celo">
+            <img
+              style={{ width: "20px", marginRight: "10px" }}
+              src="celo.png"
+            />
+            Celo
+          </Dropdown.Item>
+          <Dropdown.Item textValue="Cronos" key="Cronos">
+            <img
+              style={{ width: "20px", marginRight: "10px" }}
+              src="cronos.png"
+            />
+            Cronos
+          </Dropdown.Item>
+          <Dropdown.Item textValue="Moonriver" key="Moonriver">
+            <img
+              style={{ width: "20px", marginRight: "10px" }}
+              src="moon.png"
+            />
+            Moonriver
           </Dropdown.Item>
           <Dropdown.Item textValue="Hardhat" key="Hardhat">
             HardHat Node

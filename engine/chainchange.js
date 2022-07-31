@@ -63,6 +63,264 @@ export async function polyChain() {
   }
 }
 
+export async function avaxChain() {
+  try {
+    await ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0xa86a" }],
+    });
+  } catch (switchError) {
+    if (switchError.code === 4902) {
+      try {
+        await window.ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [
+            {
+              chainId: "0xa86a",
+              chainName: "Avalanche Network",
+              nativeCurrency: {
+                name: "AVAX",
+                symbol: "AVAX",
+                decimals: 18,
+              },
+              rpcUrls: ["https://api.avax.network/ext/bc/C/rpc"],
+              blockExplorerUrls: ["https://snowtrace.io/"],
+            },
+          ],
+        });
+      } catch (addError) {
+        console.log("Error adding Chain");
+      }
+    }
+  }
+}
+
+export async function fantomChain() {
+  try {
+    await ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0xfa" }],
+    });
+  } catch (switchError) {
+    if (switchError.code === 4902) {
+      try {
+        await window.ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [
+            {
+              chainId: "0xfa",
+              chainName: "Fantom Opera",
+              nativeCurrency: {
+                name: "FTM",
+                symbol: "FTM",
+                decimals: 18,
+              },
+              rpcUrls: ["https://rpc.ankr.com/fantom"],
+              blockExplorerUrls: ["https://ftmscan.com/"],
+            },
+          ],
+        });
+      } catch (addError) {
+        console.log("Error adding Chain");
+      }
+    }
+  }
+}
+
+export async function oasisChain() {
+  try {
+    await ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0xa516" }],
+    });
+  } catch (switchError) {
+    if (switchError.code === 4902) {
+      try {
+        await window.ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [
+            {
+              chainId: "0xa516",
+              chainName: "Emerald Mainnet",
+              nativeCurrency: {
+                name: "ROSE",
+                symbol: "ROSE",
+                decimals: 18,
+              },
+              rpcUrls: ["https://emerald.oasis.dev"],
+              blockExplorerUrls: ["https://www.oasisscan.com/"],
+            },
+          ],
+        });
+      } catch (addError) {
+        console.log("Error adding Chain");
+      }
+    }
+  }
+}
+
+export async function celoChain() {
+  try {
+    await ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0xa4ec" }],
+    });
+  } catch (switchError) {
+    if (switchError.code === 4902) {
+      try {
+        await window.ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [
+            {
+              chainId: "0xa4ec",
+              chainName: "Celo",
+              nativeCurrency: {
+                name: "CELO",
+                symbol: "CELO",
+                decimals: 18,
+              },
+              rpcUrls: ["https://forno.celo.org"],
+              blockExplorerUrls: ["https://explorer.celo.org"],
+            },
+          ],
+        });
+      } catch (addError) {
+        console.log("Error adding Chain");
+      }
+    }
+  }
+}
+
+export async function cronosChain() {
+  try {
+    await ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0x19" }],
+    });
+  } catch (switchError) {
+    if (switchError.code === 4902) {
+      try {
+        await window.ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [
+            {
+              chainId: "0x19",
+              chainName: "Cronos",
+              nativeCurrency: {
+                name: "CRO",
+                symbol: "CRO",
+                decimals: 18,
+              },
+              rpcUrls: ["https://evm.cronos.org"],
+              blockExplorerUrls: ["https://cronoscan.com"],
+            },
+          ],
+        });
+      } catch (addError) {
+        console.log("Error adding Chain");
+      }
+    }
+  }
+}
+
+export async function velasChain() {
+  try {
+    await ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0x6a" }],
+    });
+  } catch (switchError) {
+    if (switchError.code === 4902) {
+      try {
+        await window.ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [
+            {
+              chainId: "0x6a",
+              chainName: "Velas Network",
+              nativeCurrency: {
+                name: "VLX",
+                symbol: "VLX",
+                decimals: 18,
+              },
+              rpcUrls: ["https://evmexplorer.velas.com/rpc"],
+              blockExplorerUrls: ["https://evmexplorer.velas.com/rpc"],
+            },
+          ],
+        });
+      } catch (addError) {
+        console.log("Error adding Chain");
+      }
+    }
+  }
+}
+
+export async function moonChain() {
+  try {
+    await ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0x505" }],
+    });
+  } catch (switchError) {
+    if (switchError.code === 4902) {
+      try {
+        await window.ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [
+            {
+              chainId: "0x505",
+              chainName: "Moonriver",
+              nativeCurrency: {
+                name: "MOVR",
+                symbol: "MOVR",
+                decimals: 18,
+              },
+              rpcUrls: ["https://rpc.moonriver.moonbeam.network"],
+              blockExplorerUrls: [
+                "https://blockscout.moonriver.moonbeam.network/",
+              ],
+            },
+          ],
+        });
+      } catch (addError) {
+        console.log("Error adding Chain");
+      }
+    }
+  }
+}
+
+export async function harmonyChain() {
+  try {
+    await ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0x63564c40" }],
+    });
+  } catch (switchError) {
+    if (switchError.code === 4902) {
+      try {
+        await window.ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [
+            {
+              chainId: "0x63564c40",
+              chainName: "Harmony",
+              nativeCurrency: {
+                name: "ONE",
+                symbol: "ONE",
+                decimals: 18,
+              },
+              rpcUrls: ["https://api.harmony.one"],
+              blockExplorerUrls: ["https://explorer.harmony.one"],
+            },
+          ],
+        });
+      } catch (addError) {
+        console.log("Error adding Chain");
+      }
+    }
+  }
+}
+
 export async function ethChain() {
   try {
     await ethereum.request({

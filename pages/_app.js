@@ -10,6 +10,7 @@ import {
   Dropdown,
 } from "@nextui-org/react";
 import react from "react";
+import Footer from "./footer";
 //import the file that enables to change the blockchains
 import Connectchain from "../engine/connectchain";
 
@@ -44,18 +45,23 @@ const theme = createTheme({
 function MyApp({ Component, pageProps }) {
   return (
     <div>
-      <div style={{ background: "black" }}>
+      <div style={{ background: "white" }}>
         <Container lg css={{ marginTop: "$5" }}>
           <Row justify="center">
-            <Col css={{ marginTop: "$8" }}>
-              <img style={{ width: "80px" }} src="NFTsolutionLogo.png" />
+            <Col css={{ marginTop: "$1" }}>
+              <a href="https://nftsolution.network/">
+                <img
+                  style={{ width: "60px", marginLeft: "40px" }}
+                  src="NFTsolutionLogo.png"
+                />
+              </a>
             </Col>
             <Col css={{ marginTop: "$8" }}>
               <Link href="/">
                 <Button
                   size="sm"
                   style={{
-                    background: "#00000070",
+                    background: "#00000090",
                     boxShadow: "0px 0px 4px #ffffff",
                   }}
                 >
@@ -77,7 +83,7 @@ function MyApp({ Component, pageProps }) {
                 <Button
                   size="sm"
                   style={{
-                    background: "#00000070",
+                    background: "#00000090",
                     boxShadow: "0px 0px 4px #ffffff",
                   }}
                 >
@@ -98,7 +104,29 @@ function MyApp({ Component, pageProps }) {
               <Button
                 size="sm"
                 style={{
-                  background: "#00000070",
+                  background: "#00000090",
+                  boxShadow: "0px 0px 4px #ffffff",
+                }}
+              >
+                <Link href="/create">
+                  <a
+                    style={{
+                      fontFamily: "SF Pro Display",
+                      fontWeight: "500",
+                      color: "white",
+                      fontSize: "20px",
+                    }}
+                  >
+                    Create Portal
+                  </a>
+                </Link>
+              </Button>
+            </Col>
+            <Col css={{ marginTop: "$8" }}>
+              <Button
+                size="sm"
+                style={{
+                  background: "#00000090",
                   boxShadow: "0px 0px 4px #ffffff",
                 }}
               >
@@ -111,7 +139,7 @@ function MyApp({ Component, pageProps }) {
                       fontSize: "20px",
                     }}
                   >
-                    My NFT Portal
+                    NFT Portal
                   </a>
                 </Link>
               </Button>
@@ -119,9 +147,12 @@ function MyApp({ Component, pageProps }) {
             <Connectchain />
           </Row>
         </Container>
-        <NextUIProvider>
+        <NextUIProvider theme={theme}>
           <Component {...pageProps} />
         </NextUIProvider>
+        <Footer>
+          <Footer />
+        </Footer>
       </div>
     </div>
   );

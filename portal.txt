@@ -1,0 +1,4 @@
+EXPLANATION OF THE PORTAL.JS CODE
+
+1  start with setRPC and after we run the function we are going to call setNFTcustom, 
+    after setNFTcol, after it callls setNFTResell, getNFTresell.

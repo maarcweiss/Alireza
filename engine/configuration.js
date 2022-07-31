@@ -38,3 +38,117 @@ var hhrpc = "http://localhost:8545";
 Global Parameters
 */
 export var mainnet = hhrpc;
+
+/*
+IPFS API DETAILS ###########################CHANGE##############
+*/
+import { create as ipfsHttpClient } from "ipfs-http-client";
+export const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
+
+/*
+HardHat Testnet
+*/
+export var hhresell = "YOUR CONTRACT ADDRESS";
+export var hhnftcol = "YOUR CONTRACT ADDRESS";
+export var hhnft = "YOUR CONTRACT ADDRESS";
+export var hhmarket = "YOUR CONTRACT ADDRESS";
+export var hhrpc = "http://localhost:8545";
+
+/*
+Goerli Testnet
+*/
+export var goeresell = "YOUR CONTRACT ADDRESS";
+export var goenftcol = "YOUR CONTRACT ADDRESS";
+export var goenft = "YOUR CONTRACT ADDRESS";
+export var goemarket = "YOUR CONTRACT ADDRESS";
+export var goerpc = "https://rpc.ankr.com/eth_goerli";
+
+/*
+BSC Testnet
+*/
+export var bsctresell = "YOUR CONTRACT ADDRESS";
+export var bsctnftcol = "YOUR CONTRACT ADDRESS";
+export var bsctnft = "YOUR CONTRACT ADDRESS";
+export var bsctmarket = "YOUR CONTRACT ADDRESS";
+export var bsctrpc = "https://data-seed-prebsc-2-s3.binance.org:8545";
+
+/*
+Mumbai Testnet
+*/
+export var mmresell = "YOUR CONTRACT ADDRESS";
+export var mmnftcol = "YOUR CONTRACT ADDRESS";
+export var mmnft = "YOUR CONTRACT ADDRESS";
+export var mmmarket = "YOUR CONTRACT ADDRESS";
+export var mmrpc = "https://matic-testnet-archive-rpc.bwarelabs.com";
+
+/*
+HardHat Testnet
+*/
+export var hhresell = "YOUR CONTRACT ADDRESS";
+export var hhnftcol = "YOUR CONTRACT ADDRESS";
+export var hhnft = "YOUR CONTRACT ADDRESS";
+export var hhmarket = "YOUR CONTRACT ADDRESS";
+export var hhrpc = "http://localhost:8545";
+
+/*
+Goerli Testnet
+*/
+export var goeresell = "YOUR CONTRACT ADDRESS";
+export var goenftcol = "YOUR CONTRACT ADDRESS";
+export var goenft = "YOUR CONTRACT ADDRESS";
+export var goemarket = "YOUR CONTRACT ADDRESS";
+export var goerpc = "https://rpc.ankr.com/eth_goerli";
+
+/*
+BSC Testnet
+*/
+export var bsctresell = "YOUR CONTRACT ADDRESS";
+export var bsctnftcol = "YOUR CONTRACT ADDRESS";
+export var bsctnft = "YOUR CONTRACT ADDRESS";
+export var bsctmarket = "YOUR CONTRACT ADDRESS";
+export var bsctrpc = "https://data-seed-prebsc-2-s3.binance.org:8545";
+
+/*
+Mumbai Testnet
+*/
+export var mmresell = "YOUR CONTRACT ADDRESS";
+export var mmnftcol = "YOUR CONTRACT ADDRESS";
+export var mmnft = "YOUR CONTRACT ADDRESS";
+export var mmmarket = "YOUR CONTRACT ADDRESS";
+export var mmrpc = "https://matic-testnet-archive-rpc.bwarelabs.com";
+
+/*
+HardHat Testnet
+*/
+export var hhresell = "YOUR CONTRACT ADDRESS";
+export var hhnftcol = "YOUR CONTRACT ADDRESS";
+export var hhnft = "YOUR CONTRACT ADDRESS";
+export var hhmarket = "YOUR CONTRACT ADDRESS";
+export var hhrpc = "http://localhost:8545";
+
+/*
+Goerli Testnet
+*/
+export var goeresell = "YOUR CONTRACT ADDRESS";
+export var goenftcol = "YOUR CONTRACT ADDRESS";
+export var goenft = "YOUR CONTRACT ADDRESS";
+export var goemarket = "YOUR CONTRACT ADDRESS";
+export var goerpc = "https://rpc.ankr.com/eth_goerli";
+
+/*
+BSC Testnet
+*/
+export var bsctresell = "YOUR CONTRACT ADDRESS";
+export var bsctnftcol = "YOUR CONTRACT ADDRESS";
+export var bsctnft = "YOUR CONTRACT ADDRESS";
+export var bsctmarket = "YOUR CONTRACT ADDRESS";
+export var bsctrpc = "https://data-seed-prebsc-2-s3.binance.org:8545";
+
+/*
+Mumbai Testnet
+*/
+export var mmresell = "YOUR CONTRACT ADDRESS";
+export var mmnftcol = "YOUR CONTRACT ADDRESS";
+export var mmnft = "YOUR CONTRACT ADDRESS";
+export var mmmarket = "YOUR CONTRACT ADDRESS";
+export var mmrpc = "https://matic-testnet-archive-rpc.bwarelabs.com";
