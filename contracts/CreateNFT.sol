@@ -1,13 +1,21 @@
 // SPDX-License-Identifier: Apache-2.0
 
-
+//newest solidity version
 pragma solidity ^0.8.4;
+
+/*
+Importing contracts from openzeppelin(Counters, ERC721URIStorage(to be able to create the NFTs and the metadata uploading the image),
+ERC721(token standart for NFTs and Ownable(modifier for the functions that only the deployer of the smart contract can access(NFTSolution Wallet))))
+*/
 
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+/*
+Create the contract and inherit from Ownable and ERC721URIStorage
+*/
 contract CreateNFT is ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter public _tokenIds;
@@ -16,6 +24,9 @@ contract CreateNFT is ERC721URIStorage, Ownable {
 
     mapping(uint256 => string) private _tokenURIs;
 
+/*
+Initialize the contract with both constructors, the one from CreateNFT and the one from ERC721(input just to test)
+*/
     constructor(address marketContract) ERC721("Weiss NFT", "MWNFT") {
         contractAddress = marketContract;
     }
