@@ -70,7 +70,7 @@ Mint the NFT, increment the Id and send the fee.
     fallback()external payable{}
 
     /*
-    Receive ether if someone sends this ether to the contract without data
+    Receive ether if someone sends this ether to the contract without data.
     */
     receive() external payable{}
 }
