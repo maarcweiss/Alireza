@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 contract NFTMarketResell is IERC721Receiver, ReentrancyGuard {
 
-  address payable owner;
+  address payable immutable owner;
   uint256 listingFee = 0.0025 ether;
 
   struct List {
@@ -68,6 +68,9 @@ contract NFTMarketResell is IERC721Receiver, ReentrancyGuard {
       delete vaultItems[tokenId];
   }
   
+  /*
+  It returns the price of the selected NFT
+  */
   function getPrice(uint256 tokenId) external view returns (uint256) {
       uint256 price = vaultItems[tokenId].price;
       return price;
@@ -99,4 +102,21 @@ contract NFTMarketResell is IERC721Receiver, ReentrancyGuard {
       return IERC721Receiver.onERC721Received.selector;
     }
   
+
+/*
+  Function to be able to change the listing fee because maybe we do some special events
+*/
+  function changeListingFee(uint256 _newFee)external onlyOwner(){
+    listingFee = _newFee;
+  }
+
+  /*
+    Receive ether if someone sends this ether to the contract 
+  */
+    fallback()external payable{}
+   
+  /*
+    Receive ether if someone sends this ether to the contract without data
+  */
+    receive() external payable{}
 }

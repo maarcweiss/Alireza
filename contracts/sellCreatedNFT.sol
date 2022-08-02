@@ -1,6 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
+//newest solidity version
 pragma solidity ^0.8.4;
+
+/*
+Importing contracts from openzeppelin(Counters, ReentrancyGuard(Protects against solidity major vulnerability and future exploits),
+ERC721(token standart for NFTs and Ownable(modifier for the functions that only the deployer of the smart contract can access(NFTSolution Wallet))))
+*/
 
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
@@ -17,7 +23,7 @@ contract sellNFT is ReentrancyGuard, Ownable {
   Counters.Counter private _itemIds;
   Counters.Counter private _itemsSold;
 
-  address payable holder;
+  address payable immutable holder;
 
   /*
   Fees to use the marketplace(Probably we would like to start without any listing fee)
@@ -55,11 +61,11 @@ contract sellNFT is ReentrancyGuard, Ownable {
 /*
 It just returns the listing fee
 */
-  function getListingFee() public view returns (uint256) {
+  function getListingFee() external view returns (uint256) {
     return listingFee;
   }
   
-  function createVaultItem(address nftContract,uint256 tokenId,uint256 price) public payable nonReentrant {
+  function createVaultItem(address nftContract,uint256 tokenId,uint256 price) external payable nonReentrant {
     require(price > 0, "Price cannot be zero");
     require(msg.value == listingFee, "Price cannot be listing fee");
     _itemIds.increment();
@@ -69,7 +75,7 @@ It just returns the listing fee
     emit VaultItemCreated(itemId,nftContract,tokenId,msg.sender,address(0),price,false);}
 
   function MarketSale(
-    address nftContract,uint256 itemId) public payable nonReentrant {
+    address nftContract,uint256 itemId) external payable nonReentrant {
     uint price = idToVaultItem[itemId].price;
     uint tokenId = idToVaultItem[itemId].tokenId;
     require(msg.value == price, "Not enough balance to complete transaction");
@@ -81,7 +87,7 @@ It just returns the listing fee
     payable(holder).transfer(listingFee);
   }
 
-  function getAvailableNft() public view returns (VaultItem[] memory) {
+  function getAvailableNft() external view returns (VaultItem[] memory) {
     uint itemCount = _itemIds.current();
     uint unsoldItemCount = _itemIds.current() - _itemsSold.current();
     uint currentIndex = 0;
@@ -98,7 +104,7 @@ It just returns the listing fee
     return items;
   }
 
-  function getMyNft() public view returns (VaultItem[] memory) {
+  function getMyNft() external view returns (VaultItem[] memory) {
     uint totalItemCount = _itemIds.current();
     uint itemCount = 0;
     uint currentIndex = 0;
@@ -121,7 +127,7 @@ It just returns the listing fee
     return items;
   }
 
-  function getMyMarketNfts() public view returns (VaultItem[] memory) {
+  function getMyMarketNfts() external view returns (VaultItem[] memory) {
     uint totalItemCount = _itemIds.current();
     uint itemCount = 0;
     uint currentIndex = 0;
