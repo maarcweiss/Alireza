@@ -22,12 +22,19 @@ contract sellNFT is ReentrancyGuard, Ownable {
   */
   Counters.Counter private _itemIds;
   Counters.Counter private _itemsSold;
+  
+   /*
+  Note that we the address has the keyword immutable because it want change but we can still set the value inside the constructor
+  We could say constant if it was a fixed value from the beginning.
+  It also saves gas because it is not saved as storage on the EVM
+  */
 
   address payable immutable holder;
 
   /*
   Fees to use the marketplace(Probably we would like to start without any listing fee)
   We can change it below(both functions).
+  In this contract we added the minting fee that the users will have to pay if they want to mint the NFT
   */
   uint256 listingFee = 0.0025 ether;
   uint256 mintingFee = 0.0075 ether;
@@ -35,6 +42,8 @@ contract sellNFT is ReentrancyGuard, Ownable {
   constructor() {
     holder = payable(msg.sender);
   }
+
+  //Very simillar to the resellExistingNFTs smart contract
 
   struct VaultItem {
     uint itemId;
@@ -46,8 +55,11 @@ contract sellNFT is ReentrancyGuard, Ownable {
     bool sold;
   }
 
+  //Very simillar to the resellExistingNFTs smart contract
   mapping(uint256 => VaultItem) private idToVaultItem;
 
+
+//Very simillar to the resellExistingNFTs smart contract
   event VaultItemCreated (
     uint indexed itemId,
     address indexed nftContract,
@@ -65,13 +77,20 @@ It just returns the listing fee
     return listingFee;
   }
   
+/*
+Function to create a vault item that will call the NFT contract that is willing to issue the tokens
+*/
   function createVaultItem(address nftContract,uint256 tokenId,uint256 price) external payable nonReentrant {
-    require(price > 0, "Price cannot be zero");
-    require(msg.value == listingFee, "Price cannot be listing fee");
+    require(price > 0, "Price can't be zero");
+    require(msg.value == listingFee, "Pay de listing fee");
+    //every time that we someone adds an item id it keeps incrementing
     _itemIds.increment();
     uint256 itemId = _itemIds.current();
+    //here we are storing every single NFT that has been listed for sale
     idToVaultItem[itemId] =  VaultItem(itemId,nftContract,tokenId,payable(msg.sender),payable(address(0)),price,false);
+    //In this function we are going to be able to transfer the token to our marketplace smart contract
     IERC721(nftContract).transferFrom(msg.sender, address(this), tokenId);
+    //cretae the event  *****************LOOK IF IT IS ADDRESS 0 OR ADDRESS(THIS)
     emit VaultItemCreated(itemId,nftContract,tokenId,msg.sender,address(0),price,false);}
 
   function MarketSale(
