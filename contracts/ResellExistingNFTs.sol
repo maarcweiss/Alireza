@@ -1,6 +1,15 @@
 // SPDX-License-Identifier: Apache-2.0
 pragma solidity ^0.8.0;
 
+/*
+$$$$$$$$$$$$$$$$$$$$$$$  MUST DO  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+1 when deployed set approval for all the NFT collection si the ERC721 contract part2 48
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$  IDEAS  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+1 Set a comision for every sale
+2 Change listing fee with only owner
+*/
+
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 /*
 ERC721ENUMERABLE allows you to see which index of tokens owns every user, not just how many
@@ -8,6 +17,11 @@ ERC721ENUMERABLE allows you to see which index of tokens owns every user, not ju
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+
+/*
+NOTE ALL THE FUNCTIONS ARE EXTERNAL TO PROTECT THE CONTRACT,, AT THE MOMENT OF DEPLOYMENT
+WE MIGHT NEED TO CHANGE THE VISIBILITY
+*/
 
 contract NFTMarketResell is IERC721Receiver, ReentrancyGuard, Ownable {
 
@@ -18,7 +32,7 @@ contract NFTMarketResell is IERC721Receiver, ReentrancyGuard, Ownable {
   */
 
   address payable immutable holder;
-  
+
 /*
 Fee to use the marketplace(Probably we would like to start without any listing fee)
 */
@@ -81,14 +95,18 @@ It passes 2 parameters, th tokenId and the price that you want it to list it for
 Modifier nonReentrant
 */
   function listSale(uint256 tokenId, uint256 price) external payable nonReentrant {
-    //check if the seller is the owner of the NFT
+    //check if the (WALLET)seller is the owner of the NFT
+    //ownerOf comes from a function of the ERC721 contract
       require(nft.ownerOf(tokenId) == msg.sender, "NFT not yours");
+      //grabs the tokenId from the NFT and adds it to the vaulitems
       require(vaultItems[tokenId].tokenId == 0, "NFT already listed");
       require(price > 0, "higher than 0");
-      //MIRAR333333333333333333333333333333333333333333333333333  
-      require(msg.value == listingFee, " Transfer 0.0025 to pay listing fee");
+      require(msg.value == listingFee, " Pay listing fee");
+      //send the listing of the NFT to the mapping
       vaultItems[tokenId] =  NFT(tokenId, payable(msg.sender), payable(address(this)), price, false);
+      //it transfers the NFT from the seller wallet to the marketplace address
       nft.transferFrom(msg.sender, address(this), tokenId);
+      //keep track of the event
       emit NFTListCreated(tokenId, msg.sender, address(this), price, false);
   }
 
@@ -106,8 +124,7 @@ Modifier nonReentrant
       nft.transferFrom(address(this), msg.sender, tokenId);
       //change the state of the NFT
       vaultItems[tokenId].sold = true;
-      //###########################check why delete, do not wanted to resell######################################
-      //delete the NFT from the vault
+      //delete the NFT from the vault(From the listing of the struct NFT)
       delete vaultItems[tokenId];
   }
 /*
@@ -118,21 +135,28 @@ Function to cancel the sale of the NFT passing the tokenId.
       require(vaultItems[tokenId].seller == msg.sender, "NFT not yours");
       //transfer the NFT from us to the seller
       nft.transferFrom(address(this), msg.sender, tokenId);
-      //###########################check why delete, do not wanted to resell######################################
       //delete the NFT from the vault
       delete vaultItems[tokenId];
   }
   
+/*
+Gets the price of the NFT depending on the Id
+*/
   function getPrice(uint256 tokenId) external view returns (uint256) {
       uint256 price = vaultItems[tokenId].price;
       return price;
   }
 
+/*
+Function that just gets data. Be able to get the list of the entire itemsid(NFTs)
+and check which ones are available to purchase
+*/
  function nftListings() public view returns (NFT[] memory) {
     uint256 nftCount = nft.totalSupply();
     uint currentIndex = 0;
     NFT[] memory items = new NFT[](nftCount);
     for (uint i = 0; i < nftCount; i++) {
+      //if any item inside the marketplace shows that the owner is our smart contract, therefore, that means that the NFT is listed
         if (vaultItems[i + 1].holder == address(this)) {
         uint currentId = i + 1;
         NFT storage currentItem = vaultItems[currentId];
@@ -140,10 +164,13 @@ Function to cancel the sale of the NFT passing the tokenId.
         currentIndex += 1;
       }
     }
+    //returns the whole list of NFTs that are still listed. This is how we are going to show the NFTs in the web frontend
     return items;
+  
   }
-
-//MIRAR #######################################################
+/*
+Standart function to be able to receive the NFTs (initialize a function to be able to receive all of them)
+*/  
   function onERC721Received(
         address,
         address from,
@@ -161,9 +188,9 @@ Function to cancel the sale of the NFT passing the tokenId.
       require(payable(msg.sender).send(address(this).balance));
     }
 
-     /*
+  /*
     Receive ether if someone sends this ether to the contract 
-    */
+  */
     fallback()external payable{}
    
   /*
