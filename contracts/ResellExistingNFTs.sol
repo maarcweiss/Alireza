@@ -180,6 +180,13 @@ Standart function to be able to receive the NFTs (initialize a function to be ab
       require(from == address(0x0), "Cannot send nfts to Vault directly");
       return IERC721Receiver.onERC721Received.selector;
     }
+
+/*
+Function to be able to change the listing fee because maybe we do some special events
+*/
+    function changeListingFee(uint256 _newFee)external onlyOwner(){
+    listingFee = _newFee;
+  }
   
     /*
     Withdraw the fees from the contract, just the owner(the wallet that deploys the contract)

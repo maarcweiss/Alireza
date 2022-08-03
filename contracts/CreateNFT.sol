@@ -29,6 +29,7 @@ contract CreateNFT is ERC721URIStorage, Ownable {
 
 /*
 Initialize the contract with both constructors, the one from CreateNFT and the one from ERC721(input just to test)
+First deploy the marketplace smart contract and then provide the marketplace address
 */
     constructor(address marketContract) ERC721("Weiss NFT", "MWNFT") {
         contractAddress = marketContract;
@@ -36,18 +37,25 @@ Initialize the contract with both constructors, the one from CreateNFT and the o
 
 /*
 Creates the NFT from an image that you select and it keeps the metadata
+It expects the tokenURI which we will generate in the nextjs application.
 */
     function createNFT(string memory tokenURI) external returns (uint) {
+        //################### create a minting fee? ###################
         _tokenIds.increment();
         uint256 newItemId = _tokenIds.current();
+        //mints the NFT created
         _mint(msg.sender, newItemId);
+        //we append the tokenId to the tokenURI
         _setTokenURI(newItemId, tokenURI);
+        //set approval so the marketplace can move the NFT
         setApprovalForAll(contractAddress, true);
         return newItemId;
     }
 
 /*
 Mint the NFT, increment the Id and send the fee. It takes the tokenURI as a parameter.
+It is meant to be listed for sale, so the moment I mint the NFT with createNFT it is sending the token
+to the marketplace smart contract. #### CHECK ######
 */
 
     function mintNFT(string memory tokenURI) external payable returns (uint) {

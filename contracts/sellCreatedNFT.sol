@@ -93,6 +93,8 @@ Function to create a vault item that will call the NFT contract that is willing 
     //cretae the event  *****************LOOK IF IT IS ADDRESS 0 OR ADDRESS(THIS)
     emit VaultItemCreated(itemId,nftContract,tokenId,msg.sender,address(0),price,false);}
 
+    
+
   function MarketSale(
     address nftContract,uint256 itemId) external payable nonReentrant {
     uint price = idToVaultItem[itemId].price;
