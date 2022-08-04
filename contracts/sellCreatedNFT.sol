@@ -13,7 +13,7 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-
+//contract-deployed: 0x5FbDB2315678afecb367f032d93F642f64180aa3
 contract sellNFT is ReentrancyGuard, Ownable {
   using Counters for Counters.Counter;
   /*
@@ -93,7 +93,7 @@ Function to create a vault item that will call the NFT contract that is willing 
     //cretae the event  *****************LOOK IF IT IS ADDRESS 0 OR ADDRESS(THIS)
     emit VaultItemCreated(itemId,nftContract,tokenId,msg.sender,address(0),price,false);}
 
-    
+
 
   function MarketSale(
     address nftContract,uint256 itemId) external payable nonReentrant {

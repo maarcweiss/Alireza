@@ -8,6 +8,17 @@ import { mmnft, mmmarket } from "../engine/configuration";
 import { goenft, goemarket } from "../engine/configuration";
 import { hhnft, hhmarket } from "../engine/configuration";
 import { bsctnft, bsctmarket } from "../engine/configuration";
+import { ethnft, ethmarket } from "../engine/configuration";
+import { bscnft, bscmarket } from "../engine/configuration";
+import { polnft, polmarket } from "../engine/configuration";
+import { rosenft, rosemarket } from "../engine/configuration";
+import { velnft, velmarket } from "../engine/configuration";
+import { fantnft, fantmarket } from "../engine/configuration";
+import { harnft, harmarket } from "../engine/configuration";
+import { celnft, celmarket } from "../engine/configuration";
+import { cronft, cromarket } from "../engine/configuration";
+import { avaxnft, avaxmarket } from "../engine/configuration";
+import { moonnft, moonmarket } from "../engine/configuration";
 import detectEthereumProvider from "@metamask/detect-provider";
 import {
   Card,
@@ -76,6 +87,17 @@ export default function createMarket() {
     var goe = "0x5";
     var mm = "0x13881";
     var bsct = "0x61";
+    var moon = "0x505";
+    var avax = "0xa86a";
+    var cro = "0x19";
+    var celo = "0xa4ec";
+    var rose = "0xa516";
+    var fantom = "0xfa";
+    var har = "0x63564c40";
+    var velas = "0x6a";
+    var poly = "0x89";
+    var bsc = "0x38";
+    var eth = "0x1";
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
       var nftcontract = hhnft;
@@ -96,9 +118,27 @@ export default function createMarket() {
     var goe = "0x5";
     var mm = "0x13881";
     var bsct = "0x61";
+    var moon = "0x505";
+    var avax = "0xa86a";
+    var cro = "0x19";
+    var celo = "0xa4ec";
+    var rose = "0xa516";
+    var fantom = "0xfa";
+    var har = "0x63564c40";
+    var velas = "0x6a";
+    var poly = "0x89";
+    var bsc = "0x38";
+    var eth = "0x1";
+
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
       var market = hhmarket;
+    } else if (connected.chainId == goe) {
+      var market = goemarket;
+    } else if (connected.chainId == mm) {
+      var market = mmmarket;
+    } else if (connected.chainId == bsct) {
+      var market = bsctmarket;
     } else if (connected.chainId == goe) {
       var market = goemarket;
     } else if (connected.chainId == mm) {
@@ -178,9 +218,9 @@ export default function createMarket() {
             <Text h3 className="ml-3">
               The NFT Marketplace with a Reward.
             </Text>
-            <Text h3>N2DR IS More Than A Token</Text>
+            <Text h3>NSN IS More Than A Token</Text>
             <Spacer></Spacer>
-            <img src="n2dr-logo.png" width={"300px"} />
+            <img src="NFTsolutionLogo.png" width={"300px"} />
           </Col>
           <Col css={{ marginRight: "$7" }}>
             <Spacer></Spacer>

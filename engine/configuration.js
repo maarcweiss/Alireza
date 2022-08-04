@@ -82,73 +82,101 @@ export var mmmarket = "YOUR CONTRACT ADDRESS";
 export var mmrpc = "https://matic-testnet-archive-rpc.bwarelabs.com";
 
 /*
-HardHat Testnet
+Ethereum
 */
-export var hhresell = "YOUR CONTRACT ADDRESS";
-export var hhnftcol = "YOUR CONTRACT ADDRESS";
-export var hhnft = "YOUR CONTRACT ADDRESS";
-export var hhmarket = "YOUR CONTRACT ADDRESS";
-export var hhrpc = "http://localhost:8545";
+export var ethresell = "YOUR CONTRACT ADDRESS";
+export var ethnftcol = "YOUR CONTRACT ADDRESS";
+export var ethnft = "YOUR CONTRACT ADDRESS";
+export var ethmarket = "YOUR CONTRACT ADDRESS";
+//-------------------------CHECK IF IT IS THE CORRECT ONE-------------------------------
+export var ethrpc = "https://rpc.ankr.com/eth";
 
 /*
-Goerli Testnet
+BSC
 */
-export var goeresell = "YOUR CONTRACT ADDRESS";
-export var goenftcol = "YOUR CONTRACT ADDRESS";
-export var goenft = "YOUR CONTRACT ADDRESS";
-export var goemarket = "YOUR CONTRACT ADDRESS";
-export var goerpc = "https://rpc.ankr.com/eth_goerli";
+export var bscresell = "YOUR CONTRACT ADDRESS";
+export var bscnftcol = "YOUR CONTRACT ADDRESS";
+export var bscnft = "YOUR CONTRACT ADDRESS";
+export var bscmarket = "YOUR CONTRACT ADDRESS";
+export var bscrpc = "https://bsc-dataseed2.defibit.io";
 
 /*
-BSC Testnet
+Polygon
 */
-export var bsctresell = "YOUR CONTRACT ADDRESS";
-export var bsctnftcol = "YOUR CONTRACT ADDRESS";
-export var bsctnft = "YOUR CONTRACT ADDRESS";
-export var bsctmarket = "YOUR CONTRACT ADDRESS";
-export var bsctrpc = "https://data-seed-prebsc-2-s3.binance.org:8545";
+export var polresell = "YOUR CONTRACT ADDRESS";
+export var polnftcol = "YOUR CONTRACT ADDRESS";
+export var polnft = "YOUR CONTRACT ADDRESS";
+export var polmarket = "YOUR CONTRACT ADDRESS";
+export var polrpc = "https://matic-mainnet.chainstacklabs.com";
 
 /*
-Mumbai Testnet
+Oasis Network
 */
-export var mmresell = "YOUR CONTRACT ADDRESS";
-export var mmnftcol = "YOUR CONTRACT ADDRESS";
-export var mmnft = "YOUR CONTRACT ADDRESS";
-export var mmmarket = "YOUR CONTRACT ADDRESS";
-export var mmrpc = "https://matic-testnet-archive-rpc.bwarelabs.com";
+export var roseresell = "YOUR CONTRACT ADDRESS";
+export var rosenftcol = "YOUR CONTRACT ADDRESS";
+export var rosenft = "YOUR CONTRACT ADDRESS";
+export var rosemarket = "YOUR CONTRACT ADDRESS";
+export var roserpc = "https://emerald.oasis.dev";
 
 /*
-HardHat Testnet
+Velas
 */
-export var hhresell = "YOUR CONTRACT ADDRESS";
-export var hhnftcol = "YOUR CONTRACT ADDRESS";
-export var hhnft = "YOUR CONTRACT ADDRESS";
-export var hhmarket = "YOUR CONTRACT ADDRESS";
-export var hhrpc = "http://localhost:8545";
+export var velresell = "YOUR CONTRACT ADDRESS";
+export var velnftcol = "YOUR CONTRACT ADDRESS";
+export var velnft = "YOUR CONTRACT ADDRESS";
+export var velmarket = "YOUR CONTRACT ADDRESS";
+export var velrpc = "https://evmexplorer.velas.com/rpc";
 
 /*
-Goerli Testnet
+Fantom
 */
-export var goeresell = "YOUR CONTRACT ADDRESS";
-export var goenftcol = "YOUR CONTRACT ADDRESS";
-export var goenft = "YOUR CONTRACT ADDRESS";
-export var goemarket = "YOUR CONTRACT ADDRESS";
-export var goerpc = "https://rpc.ankr.com/eth_goerli";
+export var fantresell = "YOUR CONTRACT ADDRESS";
+export var fantnftcol = "YOUR CONTRACT ADDRESS";
+export var fantnft = "YOUR CONTRACT ADDRESS";
+export var fantmarket = "YOUR CONTRACT ADDRESS";
+export var fantrpc = "https://rpc.ankr.com/fantom";
 
 /*
-BSC Testnet
+Harmony
 */
-export var bsctresell = "YOUR CONTRACT ADDRESS";
-export var bsctnftcol = "YOUR CONTRACT ADDRESS";
-export var bsctnft = "YOUR CONTRACT ADDRESS";
-export var bsctmarket = "YOUR CONTRACT ADDRESS";
-export var bsctrpc = "https://data-seed-prebsc-2-s3.binance.org:8545";
+export var harresell = "YOUR CONTRACT ADDRESS";
+export var harnftcol = "YOUR CONTRACT ADDRESS";
+export var harnft = "YOUR CONTRACT ADDRESS";
+export var harmarket = "YOUR CONTRACT ADDRESS";
+export var harrpc = "https://api.harmony.one";
 
 /*
-Mumbai Testnet
+Celo
 */
-export var mmresell = "YOUR CONTRACT ADDRESS";
-export var mmnftcol = "YOUR CONTRACT ADDRESS";
-export var mmnft = "YOUR CONTRACT ADDRESS";
-export var mmmarket = "YOUR CONTRACT ADDRESS";
-export var mmrpc = "https://matic-testnet-archive-rpc.bwarelabs.com";
+export var celresell = "YOUR CONTRACT ADDRESS";
+export var celnftcol = "YOUR CONTRACT ADDRESS";
+export var celnft = "YOUR CONTRACT ADDRESS";
+export var celmarket = "YOUR CONTRACT ADDRESS";
+export var celrpc = "https://forno.celo.org";
+
+/*
+Cronos
+*/
+export var croresell = "YOUR CONTRACT ADDRESS";
+export var cronftcol = "YOUR CONTRACT ADDRESS";
+export var cronft = "YOUR CONTRACT ADDRESS";
+export var cromarket = "YOUR CONTRACT ADDRESS";
+export var crorpc = "https://evm.cronos.org";
+
+/*
+Moonriver
+*/
+export var moonresell = "YOUR CONTRACT ADDRESS";
+export var moonnftcol = "YOUR CONTRACT ADDRESS";
+export var moonnft = "YOUR CONTRACT ADDRESS";
+export var moonmarket = "YOUR CONTRACT ADDRESS";
+export var moonrpc = "https://rpc.moonriver.moonbeam.network";
+
+/*
+Avalanche
+*/
+export var avaxresell = "YOUR CONTRACT ADDRESS";
+export var avaxnftcol = "YOUR CONTRACT ADDRESS";
+export var avaxnft = "YOUR CONTRACT ADDRESS";
+export var avaxmarket = "YOUR CONTRACT ADDRESS";
+export var avaxrpc = "https://api.avax.network/ext/bc/C/rpc";
