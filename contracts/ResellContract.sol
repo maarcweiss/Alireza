@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT LICENSE
 
-pragma solidity 0.8.9;
+pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 //ERC721ENUMERABLE allows you to see which index of tokens owns every user, not just how many

@@ -16,6 +16,8 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+//deployed: 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
+
 /*
 Create the contract and inherit from Ownable and ERC721URIStorage
 */
