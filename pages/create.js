@@ -51,11 +51,14 @@ export default function createMarket() {
   const router = useRouter();
 
   async function onChange(e) {
+    //what we need to attach to the HTML button that will ask for the picture file
+    //so when we click browse, it is going to open our mashin defualt folder
     const file = e.target.files[0];
     try {
       const added = await client.add(file, {
         progress: (prog) => console.log(`received: ${prog}`),
       });
+      //pointing to the public infura ipfs gateway and append the file instead of {added.path}
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
       setFileUrl(url);
     } catch (error) {
@@ -107,6 +110,28 @@ export default function createMarket() {
       var nftcontract = mmnft;
     } else if (connected.chainId == bsct) {
       var nftcontract = bsctnft;
+    } else if (connected.chainId == moon) {
+      var nftcontract = moonnft;
+    } else if (connected.chainId == avax) {
+      var nftcontract = avaxnft;
+    } else if (connected.chainId == cro) {
+      var nftcontract = cronft;
+    } else if (connected.chainId == celo) {
+      var nftcontract = celnft;
+    } else if (connected.chainId == eth) {
+      var nftcontract = ethnft;
+    } else if (connected.chainId == bsc) {
+      var nftcontract = bscnft;
+    } else if (connected.chainId == rose) {
+      var nftcontract = rosenft;
+    } else if (connected.chainId == velas) {
+      var nftcontract = velnft;
+    } else if (connected.chainId == fantom) {
+      var nftcontract = fantnft;
+    } else if (connected.chainId == har) {
+      var nftcontract = harnft;
+    } else if (connected.chainId == poly) {
+      var nftcontract = polnft;
     }
     getNft(nftcontract);
     console.log(nftcontract);
@@ -139,12 +164,28 @@ export default function createMarket() {
       var market = mmmarket;
     } else if (connected.chainId == bsct) {
       var market = bsctmarket;
-    } else if (connected.chainId == goe) {
-      var market = goemarket;
-    } else if (connected.chainId == mm) {
-      var market = mmmarket;
-    } else if (connected.chainId == bsct) {
-      var market = bsctmarket;
+    } else if (connected.chainId == moon) {
+      var market = moonmarket;
+    } else if (connected.chainId == avax) {
+      var market = avaxmarket;
+    } else if (connected.chainId == cro) {
+      var market = cromarket;
+    } else if (connected.chainId == celo) {
+      var market = celmarket;
+    } else if (connected.chainId == eth) {
+      var market = ethmarket;
+    } else if (connected.chainId == bsc) {
+      var market = bscmarket;
+    } else if (connected.chainId == rose) {
+      var market = rosemarket;
+    } else if (connected.chainId == velas) {
+      var market = velmarket;
+    } else if (connected.chainId == fantom) {
+      var market = fantmarket;
+    } else if (connected.chainId == har) {
+      var market = harmarket;
+    } else if (connected.chainId == poly) {
+      var market = polmarket;
     }
     getMarket(market);
     console.log(market);
