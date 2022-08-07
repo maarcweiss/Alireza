@@ -2,6 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
+
+const withTM = require("next-transpile-modules")([
+  "react-leaflet",
+  "@react-leaflet/core",
+]);

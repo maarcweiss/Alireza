@@ -76,6 +76,31 @@ module.exports = {
       live: true,
       saveDeployments: true,
     },
+    mumbai: {
+      chainId: 80001,
+      url: "https://rpc-mumbai.matic.today",
+      accounts: [ethprivKey],
+    },
+    polygon: {
+      chainId: 137,
+      url: "https://rpc-mainnet.maticvigil.com",
+      accounts: [ethprivKey],
+    },
+    ethereum: {
+      chainId: 1,
+      url: "https://main-rpc.linkpool.io",
+      accounts: [ethprivKey],
+    },
+    binance: {
+      chainId: 57,
+      url: "https://bscrpc.com",
+      accounts: [ethprivKey],
+    },
+    bsctest: {
+      chainId: 97,
+      url: "https://data-seed-prebsc-1-s3.binance.org:8545",
+      accounts: [ethprivKey],
+    },
   },
   preprocess: {
     eachLine: removeConsoleLog(
