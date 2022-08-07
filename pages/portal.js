@@ -4,7 +4,7 @@ import Web3Modal from "web3modal";
 import { useRouter } from "next/router";
 import Resell from "../engine/Resell.json";
 import NFTCollection from "../engine/NFTCollection.json";
-import NFT from "../engine/NFT.json";
+import NFT from "../engine/nft.json";
 import {
   Card,
   Button,
@@ -25,9 +25,42 @@ import {
   mainnet,
   cipherHH,
   simpleCrypto,
+  moonnftcol,
+  bscnftcol,
+  rosenftcol,
+  crorpc,
+  celrpc,
+  ethrpc,
+  bscrpc,
+  roserpc,
+  velrpc,
+  fantrpc,
+  harrpc,
+  polrpc,
+  roseresell,
+  velresell,
+  fantresell,
+  harresell,
+  polresell,
 } from "../engine/configuration.js";
 //importing the functions from the chagechain function so we are able to change(ADD THE OTHER ONES THAT WE NEED)
-import { polyTest, ethTest, bscTest } from "../engine/chainchange";
+import {
+  polyTest,
+  ethTest,
+  bscTest,
+  bscChain,
+  polyChain,
+  ethChain,
+  avaxChain,
+  fantomChain,
+  oasisChain,
+  celoChain,
+  harmonyChain,
+  cronosChain,
+  velasChain,
+  moonChain,
+  hardChain,
+} from "../engine/chainchange";
 //import to be able to see on what blockchain our metamask is connected to.
 import detectEthereumProvider from "@metamask/detect-provider";
 //import all from the connection to blockchains but not the resell smart contract
@@ -40,6 +73,17 @@ import {
   bsctnftcol,
   bsctrpc,
 } from "../engine/configuration";
+import { ethnft, ethmarket } from "../engine/configuration";
+import { bscnft, bscmarket } from "../engine/configuration";
+import { polnft, polmarket } from "../engine/configuration";
+import { rosenft, rosemarket } from "../engine/configuration";
+import { velnft, velmarket } from "../engine/configuration";
+import { fantnft, fantmarket } from "../engine/configuration";
+import { harnft, harmarket } from "../engine/configuration";
+import { celnft, celmarket } from "../engine/configuration";
+import { cronft, cromarket } from "../engine/configuration";
+import { avaxnft, avaxmarket } from "../engine/configuration";
+import { moonnft, moonmarket } from "../engine/configuration";
 import { cipherEth, simpleCrypto } from "../engine/configuration";
 
 export default function Sell() {
@@ -68,6 +112,18 @@ export default function Sell() {
     var goe = "0x5";
     var mm = "0x13881";
     var bsct = "0x61";
+    var eth = "Ethereum";
+    var bsc = "Binance Smart Chain";
+    var pol = "Polygon";
+    var avax = "Avalanche Network";
+    var ftm = "Fantom Opera";
+    var rose = "Emerald Mainnet";
+    var one = "Harmony";
+    var celo = "Celo";
+    var cro = "Cronos";
+    var vlx = "Velas Network ";
+    var movr = "Moonriver";
+
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
       var mainnet = hhrpc;
@@ -77,6 +133,28 @@ export default function Sell() {
       var mainnet = mmrpc;
     } else if (connected.chainId == bsct) {
       var mainnet = bsctrpc;
+    } else if (connected.chainId == movr) {
+      var mainnet = moonrpc;
+    } else if (connected.chainId == avax) {
+      var mainnet = avaxrpc;
+    } else if (connected.chainId == cro) {
+      var mainnet = crorpc;
+    } else if (connected.chainId == celo) {
+      var mainnet = celrpc;
+    } else if (connected.chainId == eth) {
+      var mainnet = ethrpc;
+    } else if (connected.chainId == bsc) {
+      var mainnet = bscrpc;
+    } else if (connected.chainId == rose) {
+      var mainnet = roserpc;
+    } else if (connected.chainId == vlx) {
+      var mainnet = velrpc;
+    } else if (connected.chainId == ftm) {
+      var mainnet = fantrpc;
+    } else if (connected.chainId == one) {
+      var mainnet = harrpc;
+    } else if (connected.chainId == pol) {
+      var mainnet = polrpc;
     }
     getRpc(mainnet);
     console.log(mainnet);
@@ -91,6 +169,18 @@ set the NFT collection smart contract that you want to allow user to sell NFTs f
     var goe = "0x5";
     var mm = "0x13881";
     var bsct = "0x61";
+    var eth = "Ethereum";
+    var bsc = "Binance Smart Chain";
+    var pol = "Polygon";
+    var avax = "Avalanche Network";
+    var ftm = "Fantom Opera";
+    var rose = "Emerald Mainnet";
+    var one = "Harmony";
+    var celo = "Celo";
+    var cro = "Cronos";
+    var vlx = "Velas Network ";
+    var movr = "Moonriver";
+
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
       var nftcol = hhnftcol;
@@ -100,6 +190,28 @@ set the NFT collection smart contract that you want to allow user to sell NFTs f
       var nftcol = mmnftcol;
     } else if (connected.chainId == bsct) {
       var nftcol = bsctnftcol;
+    } else if (connected.chainId == movr) {
+      var nftcol = moonnftcol;
+    } else if (connected.chainId == avax) {
+      var nftcol = avaxnftcol;
+    } else if (connected.chainId == cro) {
+      var nftcol = cronftcol;
+    } else if (connected.chainId == celo) {
+      var nftcol = celnftcol;
+    } else if (connected.chainId == eth) {
+      var nftcol = ethnftcol;
+    } else if (connected.chainId == bsc) {
+      var nftcol = bscnftcol;
+    } else if (connected.chainId == rose) {
+      var nftcol = rosenftcol;
+    } else if (connected.chainId == vlx) {
+      var nftcol = velnftcol;
+    } else if (connected.chainId == ftm) {
+      var nftcol = fantnftcol;
+    } else if (connected.chainId == one) {
+      var nftcol = harnftcol;
+    } else if (connected.chainId == pol) {
+      var nftcol = polnftcol;
     }
     getNftCol(nftcol);
     console.log(nftcol);
@@ -113,6 +225,18 @@ Update the NFT smart contract address of the blockchain that I have selected
     var goe = "0x5";
     var mm = "0x13881";
     var bsct = "0x61";
+    var eth = "Ethereum";
+    var bsc = "Binance Smart Chain";
+    var pol = "Polygon";
+    var avax = "Avalanche Network";
+    var ftm = "Fantom Opera";
+    var rose = "Emerald Mainnet";
+    var one = "Harmony";
+    var celo = "Celo";
+    var cro = "Cronos";
+    var vlx = "Velas Network ";
+    var movr = "Moonriver";
+
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
       var nft = hhnft;
@@ -122,6 +246,28 @@ Update the NFT smart contract address of the blockchain that I have selected
       var nft = mmnft;
     } else if (connected.chainId == bsct) {
       var nft = bsctnft;
+    } else if (connected.chainId == movr) {
+      var nft = moonnft;
+    } else if (connected.chainId == avax) {
+      var nft = avaxnft;
+    } else if (connected.chainId == cro) {
+      var nft = cronft;
+    } else if (connected.chainId == celo) {
+      var nft = celnft;
+    } else if (connected.chainId == eth) {
+      var nft = ethnft;
+    } else if (connected.chainId == bsc) {
+      var nft = bscnft;
+    } else if (connected.chainId == rose) {
+      var nft = rosenft;
+    } else if (connected.chainId == vlx) {
+      var nft = velnft;
+    } else if (connected.chainId == ftm) {
+      var nft = fantnft;
+    } else if (connected.chainId == one) {
+      var nft = harnft;
+    } else if (connected.chainId == pol) {
+      var nft = polnft;
     }
     getNftCustom(nft);
     console.log(nft);
@@ -135,6 +281,18 @@ Same aproach, set the NFT resell value, to be the particular smart contract
     var goe = "0x5";
     var mm = "0x13881";
     var bsct = "0x61";
+    var eth = "Ethereum";
+    var bsc = "Binance Smart Chain";
+    var pol = "Polygon";
+    var avax = "Avalanche Network";
+    var ftm = "Fantom Opera";
+    var rose = "Emerald Mainnet";
+    var one = "Harmony";
+    var celo = "Celo";
+    var cro = "Cronos";
+    var vlx = "Velas Network ";
+    var movr = "Moonriver";
+    var mum = "Mumbai";
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
       var nftresell = hhresell;
@@ -144,6 +302,28 @@ Same aproach, set the NFT resell value, to be the particular smart contract
       var nftresell = mmresell;
     } else if (connected.chainId == bsct) {
       var nftresell = bsctresell;
+    } else if (connected.chainId == movr) {
+      var nftresell = moonresell;
+    } else if (connected.chainId == avax) {
+      var nftresell = avaxresell;
+    } else if (connected.chainId == cro) {
+      var nftresell = cronft;
+    } else if (connected.chainId == celo) {
+      var nftresell = celresell;
+    } else if (connected.chainId == eth) {
+      var nftresell = ethresell;
+    } else if (connected.chainId == bsc) {
+      var nftresell = bscresell;
+    } else if (connected.chainId == rose) {
+      var nftresell = roseresell;
+    } else if (connected.chainId == vlx) {
+      var nftresell = velresell;
+    } else if (connected.chainId == ftm) {
+      var nftresell = fantresell;
+    } else if (connected.chainId == one) {
+      var nftresell = harresell;
+    } else if (connected.chainId == pol) {
+      var nftresell = polresell;
     }
     getNftResell(nftresell);
     console.log(nftresell);
@@ -158,6 +338,18 @@ Same aproach, set the NFT resell value, to be the particular smart contract
     var goe = "0x5";
     var mm = "0x13881";
     var bsct = "0x61";
+    var eth = "Ethereum";
+    var bsc = "Binance Smart Chain";
+    var pol = "Polygon";
+    var avax = "Avalanche Network";
+    var ftm = "Fantom Opera";
+    var rose = "Emerald Mainnet";
+    var one = "Harmony";
+    var celo = "Celo";
+    var cro = "Cronos";
+    var vlx = "Velas Network ";
+    var movr = "Moonriver";
+    var mum = "Mumbai";
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
       var chainname = "HardHat";
@@ -167,6 +359,28 @@ Same aproach, set the NFT resell value, to be the particular smart contract
       var chainname = "Mumbai Testnet";
     } else if (connected.chainId == bsct) {
       var chainname = "BSC Testnet";
+    } else if (connected.chainId == movr) {
+      var chainname = "Moonriver";
+    } else if (connected.chainId == avax) {
+      var chainname = "Avalanche";
+    } else if (connected.chainId == cro) {
+      var chainname = "Cronos";
+    } else if (connected.chainId == celo) {
+      var chainname = "Celo";
+    } else if (connected.chainId == eth) {
+      var chainname = "Ethereum";
+    } else if (connected.chainId == bsc) {
+      var chainname = "Binance Smart Chain";
+    } else if (connected.chainId == rose) {
+      var chainname = "Emerald";
+    } else if (connected.chainId == vlx) {
+      var chainname = "Velas";
+    } else if (connected.chainId == ftm) {
+      var chainname = "Fantom";
+    } else if (connected.chainId == one) {
+      var chainname = "Harmony";
+    } else if (connected.chainId == pol) {
+      var chainname = "Polygon";
     }
     getChainName(chainname);
     console.log(chainname);
