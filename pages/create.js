@@ -69,6 +69,7 @@ export default function createMarket() {
   async function createMarket() {
     const { name, description, price } = formInput;
     if (!name || !description || !price || !fileUrl) return;
+    //JSON.stringify is a metadata generator (metadat generator)
     const data = JSON.stringify({
       name,
       description,
@@ -197,22 +198,31 @@ export default function createMarket() {
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
     let contract = new ethers.Contract(nftcontract, NFT, signer);
+    //invokes the create NFTfunction from the smart contract
     let transaction = await contract.createNFT(url);
     let tx = await transaction.wait();
     let event = tx.events[0];
     let value = event.args[2];
+    //getting the tokenId from the transaction
     let tokenId = value.toNumber();
+    //setting the price that the user will input through the html code
     const price = ethers.utils.parseUnits(formInput.price, "ether");
+    //calling the market smaart contract
     contract = new ethers.Contract(market, Market, signer);
-    let listingFee = await contract.listingFee();
+    //it takes the listing fee from the market smart contract
+    let listingFee = await contract.getListingFee();
     listingFee = listingFee.toString();
+    //it send the listing fee as part of our transaction calling the createvaultitem function
     transaction = await contract.createVaultItem(nftcontract, tokenId, price, {
       value: listingFee,
     });
+    //inject that transaaction into the blockchain and wait to be completed
     await transaction.wait();
+    //send the user back to the home page
     router.push("/");
   }
 
+  //it is only going to ask for the name and the description to create the metadata
   async function buyNFT() {
     const { name, description } = formInput;
     if (!name || !description || !fileUrl) return;
@@ -230,17 +240,24 @@ export default function createMarket() {
     }
   }
 
+  //be able to the user to keep the NFT
   async function mintNFT(url) {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
+    //creating the contract value
     let contract = new ethers.Contract(nftcontract, NFT, signer);
+    //obtains the cost for minting
     let cost = await contract.cost();
+    //we will proceed to do the mint
     let transaction = await contract.mintNFT(url, { value: cost });
     await transaction.wait();
+    //It will sedn whoever executed this call back to the portal
     router.push("/portal");
   }
+
+  //--------------------HTML CODE---------------------------
 
   return (
     <div>
@@ -297,6 +314,7 @@ export default function createMarket() {
               <Card css={{ marginTop: "$1" }}>
                 <Card.Body style={{ backgroundColor: "#000000" }}>
                   <Input
+                    /**First input */
                     placeholder="Enter your NFT Name"
                     onChange={(e) =>
                       updateFormInput({ ...formInput, name: e.target.value })
@@ -309,6 +327,7 @@ export default function createMarket() {
                   <Input
                     placeholder="NFT Description"
                     onChange={(e) =>
+                      /**This is where we invoke the call to get the input info */
                       updateFormInput({
                         ...formInput,
                         description: e.target.value,
@@ -320,7 +339,7 @@ export default function createMarket() {
               <Card>
                 <Card.Body style={{ backgroundColor: "#000000" }}>
                   <input type="file" name="Asset" onChange={onChange} />
-                  {fileUrl && (
+                  {fileUrl /**Opens your browser to select the file */ && (
                     <img className="rounded " width="350" src={fileUrl} />
                   )}
                 </Card.Body>
@@ -328,12 +347,13 @@ export default function createMarket() {
               <Container css={{ marginBottom: "$2" }}>
                 <Input
                   css={{ marginTop: "$2" }}
-                  placeholder="Set your price in N2DR"
+                  placeholder="Set your price in NSN"
                   onChange={(e) =>
                     updateFormInput({ ...formInput, price: e.target.value })
                   }
                 />
                 <Button
+                  /**First button to list your NFT */
                   size="sm"
                   style={{ fontSize: "20px" }}
                   onPress={createMarket}

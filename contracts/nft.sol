@@ -40,9 +40,9 @@ First deploy the marketplace smart contract and then provide the marketplace add
 /*
 Creates the NFT from an image that you select and it keeps the metadata
 It expects the tokenURI which we will generate in the nextjs application.
+It directly stays the NFT in ou marketplace
 */
     function createNFT(string memory tokenURI) external returns (uint) {
-        //################### create a minting fee? ###################
         _tokenIds.increment();
         uint256 newItemId = _tokenIds.current();
         //mints the NFT created
@@ -56,8 +56,8 @@ It expects the tokenURI which we will generate in the nextjs application.
 
 /*
 Mint the NFT, increment the Id and send the fee. It takes the tokenURI as a parameter.
-It is meant to be listed for sale, so the moment I mint the NFT with createNFT it is sending the token
-to the marketplace smart contract. #### CHECK ######
+It is meant to be listed for sale.
+Function created for the users to keeps their own NFTs, not our marketplace
 */
 
     function mintNFT(string memory tokenURI) external payable returns (uint) {
