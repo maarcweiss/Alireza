@@ -4,7 +4,7 @@ import Web3Modal from "web3modal";
 import { useRouter } from "next/router";
 import Resell from "../engine/Resell.json";
 import NFTCollection from "../engine/NFTCollection.json";
-import NFT from "../engine/nft.json";
+import NFT from "../engine/NFT.json";
 import {
   Card,
   Button,
@@ -73,17 +73,37 @@ import {
   bsctnftcol,
   bsctrpc,
 } from "../engine/configuration";
-import { ethnft, ethmarket } from "../engine/configuration";
-import { bscnft, bscmarket } from "../engine/configuration";
-import { polnft, polmarket } from "../engine/configuration";
-import { rosenft, rosemarket } from "../engine/configuration";
-import { velnft, velmarket } from "../engine/configuration";
-import { fantnft, fantmarket } from "../engine/configuration";
-import { harnft, harmarket } from "../engine/configuration";
-import { celnft, celmarket } from "../engine/configuration";
-import { cronft, cromarket } from "../engine/configuration";
-import { avaxnft, avaxmarket } from "../engine/configuration";
-import { moonnft, moonmarket } from "../engine/configuration";
+import { ethnft, ethresell, ethnftcol, ethrpc } from "../engine/configuration";
+import { bscnft, bscresell, bscnftcol, bscrpc } from "../engine/configuration";
+import { polnft, polresell, polnftcol, polrpc } from "../engine/configuration";
+import {
+  rosenft,
+  roseresell,
+  rosenftcol,
+  roserpc,
+} from "../engine/configuration";
+import { velnft, velresell, velnftcol, velrpc } from "../engine/configuration";
+import {
+  fantnft,
+  fantresell,
+  fantnftcol,
+  fantrpc,
+} from "../engine/configuration";
+import { harnft, harresell, harnftcol, harrpc } from "../engine/configuration";
+import { celnft, celresell, celnftcol, celrpc } from "../engine/configuration";
+import { cronft, croresell, cronftcol, crorpc } from "../engine/configuration";
+import {
+  avaxnft,
+  avaxresell,
+  avaxnftcol,
+  avaxrpc,
+} from "../engine/configuration";
+import {
+  moonnft,
+  moonresell,
+  moonnftcol,
+  moonrpc,
+} from "../engine/configuration";
 import { cipherEth, simpleCrypto } from "../engine/configuration";
 
 export default function Sell() {
@@ -112,17 +132,17 @@ export default function Sell() {
     var goe = "0x5";
     var mm = "0x13881";
     var bsct = "0x61";
-    var eth = "Ethereum";
-    var bsc = "Binance Smart Chain";
-    var pol = "Polygon";
-    var avax = "Avalanche Network";
-    var ftm = "Fantom Opera";
-    var rose = "Emerald Mainnet";
-    var one = "Harmony";
-    var celo = "Celo";
-    var cro = "Cronos";
-    var vlx = "Velas Network ";
-    var movr = "Moonriver";
+    var movr = "0x505";
+    var avax = "0xa86a";
+    var cro = "0x19";
+    var celo = "0xa4ec";
+    var rose = "0xa516";
+    var ftm = "0xfa";
+    var one = "0x63564c40";
+    var vlx = "0x6a";
+    var pol = "0x89";
+    var bsc = "0x38";
+    var eth = "0x1";
 
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
@@ -169,17 +189,17 @@ set the NFT collection smart contract that you want to allow user to sell NFTs f
     var goe = "0x5";
     var mm = "0x13881";
     var bsct = "0x61";
-    var eth = "Ethereum";
-    var bsc = "Binance Smart Chain";
-    var pol = "Polygon";
-    var avax = "Avalanche Network";
-    var ftm = "Fantom Opera";
-    var rose = "Emerald Mainnet";
-    var one = "Harmony";
-    var celo = "Celo";
-    var cro = "Cronos";
-    var vlx = "Velas Network ";
-    var movr = "Moonriver";
+    var movr = "0x505";
+    var avax = "0xa86a";
+    var cro = "0x19";
+    var celo = "0xa4ec";
+    var rose = "0xa516";
+    var ftm = "0xfa";
+    var one = "0x63564c40";
+    var vlx = "0x6a";
+    var pol = "0x89";
+    var bsc = "0x38";
+    var eth = "0x1";
 
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
@@ -225,17 +245,17 @@ Update the NFT smart contract address of the blockchain that I have selected
     var goe = "0x5";
     var mm = "0x13881";
     var bsct = "0x61";
-    var eth = "Ethereum";
-    var bsc = "Binance Smart Chain";
-    var pol = "Polygon";
-    var avax = "Avalanche Network";
-    var ftm = "Fantom Opera";
-    var rose = "Emerald Mainnet";
-    var one = "Harmony";
-    var celo = "Celo";
-    var cro = "Cronos";
-    var vlx = "Velas Network ";
-    var movr = "Moonriver";
+    var movr = "0x505";
+    var avax = "0xa86a";
+    var cro = "0x19";
+    var celo = "0xa4ec";
+    var rose = "0xa516";
+    var ftm = "0xfa";
+    var one = "0x63564c40";
+    var vlx = "0x6a";
+    var pol = "0x89";
+    var bsc = "0x38";
+    var eth = "0x1";
 
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
@@ -281,18 +301,18 @@ Same aproach, set the NFT resell value, to be the particular smart contract
     var goe = "0x5";
     var mm = "0x13881";
     var bsct = "0x61";
-    var eth = "Ethereum";
-    var bsc = "Binance Smart Chain";
-    var pol = "Polygon";
-    var avax = "Avalanche Network";
-    var ftm = "Fantom Opera";
-    var rose = "Emerald Mainnet";
-    var one = "Harmony";
-    var celo = "Celo";
-    var cro = "Cronos";
-    var vlx = "Velas Network ";
-    var movr = "Moonriver";
-    var mum = "Mumbai";
+    var movr = "0x505";
+    var avax = "0xa86a";
+    var cro = "0x19";
+    var celo = "0xa4ec";
+    var rose = "0xa516";
+    var ftm = "0xfa";
+    var one = "0x63564c40";
+    var vlx = "0x6a";
+    var pol = "0x89";
+    var bsc = "0x38";
+    var eth = "0x1";
+
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
       var nftresell = hhresell;
@@ -307,7 +327,7 @@ Same aproach, set the NFT resell value, to be the particular smart contract
     } else if (connected.chainId == avax) {
       var nftresell = avaxresell;
     } else if (connected.chainId == cro) {
-      var nftresell = cronft;
+      var nftresell = croresell;
     } else if (connected.chainId == celo) {
       var nftresell = celresell;
     } else if (connected.chainId == eth) {
@@ -338,18 +358,18 @@ Same aproach, set the NFT resell value, to be the particular smart contract
     var goe = "0x5";
     var mm = "0x13881";
     var bsct = "0x61";
-    var eth = "Ethereum";
-    var bsc = "Binance Smart Chain";
-    var pol = "Polygon";
-    var avax = "Avalanche Network";
-    var ftm = "Fantom Opera";
-    var rose = "Emerald Mainnet";
-    var one = "Harmony";
-    var celo = "Celo";
-    var cro = "Cronos";
-    var vlx = "Velas Network ";
-    var movr = "Moonriver";
-    var mum = "Mumbai";
+    var movr = "0x505";
+    var avax = "0xa86a";
+    var cro = "0x19";
+    var celo = "0xa4ec";
+    var rose = "0xa516";
+    var ftm = "0xfa";
+    var one = "0x63564c40";
+    var vlx = "0x6a";
+    var pol = "0x89";
+    var bsc = "0x38";
+    var eth = "0x1";
+
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
       var chainname = "HardHat";
@@ -475,6 +495,7 @@ Funtion to obtain the NFTs that were created
     const wallet = new ethers.Wallet(key, provider);
     const contract = new ethers.Contract(address, NFT, wallet);
     const itemArray = [];
+    //calling the tokenIds
     contract._tokenIds().then((result) => {
       for (let i = 0; i < result; i++) {
         var token = i + 1;
@@ -579,6 +600,42 @@ Funtion to obtain the NFTs that were created
                 </Button>
                 <Button size="sm" onPress={ethTest}>
                   <img src="ethereumlogo.png" width={"100px"} />
+                </Button>
+                <Button size="sm" onPress={hardChain}>
+                  <img src="pickle.png" width={"100px"} />
+                </Button>
+                <Button size="sm" onPress={bscChain}>
+                  <img src="bsc.png" width={"100px"} />
+                </Button>
+                <Button size="sm" onPress={ethChain}>
+                  <img src="ethereumlogo.png" width={"100px"} />
+                </Button>
+                <Button size="sm" onPress={polyChain}>
+                  <img src="polygonwhite.png" width={"100px"} />
+                </Button>
+                <Button size="sm" onPress={avaxChain}>
+                  <img src="avax.png" width={"100px"} />
+                </Button>
+                <Button size="sm" onPress={celoChain}>
+                  <img src="celo.png" width={"100px"} />
+                </Button>
+                <Button size="sm" onPress={fantomChain}>
+                  <img src="ftm.png" width={"100px"} />
+                </Button>
+                <Button size="sm" onPress={harmonyChain}>
+                  <img src="harmony.png" width={"100px"} />
+                </Button>
+                <Button size="sm" onPress={moonChain}>
+                  <img src="moon.png" width={"100px"} />
+                </Button>
+                <Button size="sm" onPress={oasisChain}>
+                  <img src="rose.png" width={"100px"} />
+                </Button>
+                <Button size="sm" onPress={velasChain}>
+                  <img src="velas.png" width={"100px"} />
+                </Button>
+                <Button size="sm" onPress={cronosChain}>
+                  <img src="cronos.png" width={"100px"} />
                 </Button>
               </Row>
               <Card css={{ p: "$4", marginTop: "$3" }}>
