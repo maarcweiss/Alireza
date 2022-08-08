@@ -79,27 +79,37 @@ module.exports = {
     mumbai: {
       chainId: 80001,
       url: "https://rpc-mumbai.matic.today",
-      accounts: [ethprivKey],
+      accounts,
+      live: true,
+      saveDeployments: true,
     },
     polygon: {
       chainId: 137,
       url: "https://rpc-mainnet.maticvigil.com",
-      accounts: [ethprivKey],
+      accounts,
+      live: true,
+      saveDeployments: true,
     },
     ethereum: {
       chainId: 1,
       url: "https://main-rpc.linkpool.io",
-      accounts: [ethprivKey],
+      accounts,
+      live: true,
+      saveDeployments: true,
     },
     binance: {
       chainId: 57,
       url: "https://bscrpc.com",
-      accounts: [ethprivKey],
+      accounts,
+      live: true,
+      saveDeployments: true,
     },
     bsctest: {
       chainId: 97,
       url: "https://data-seed-prebsc-1-s3.binance.org:8545",
-      accounts: [ethprivKey],
+      accounts,
+      live: true,
+      saveDeployments: true,
     },
   },
   preprocess: {
@@ -109,7 +119,7 @@ module.exports = {
     ),
   },
   solidity: {
-    version: "0.6.12",
+    version: "0.8.4",
     settings: {
       optimizer: {
         enabled: true,
