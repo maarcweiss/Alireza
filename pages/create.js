@@ -7,6 +7,7 @@ import Market from "../engine/Market.json";
 import { mmnft, mmmarket } from "../engine/configuration";
 import { goenft, goemarket } from "../engine/configuration";
 import { hhnft, hhmarket } from "../engine/configuration";
+import { rinnnft, rinnmarket } from "../engine/configuration";
 import { bsctnft, bsctmarket } from "../engine/configuration";
 import { ethnft, ethmarket } from "../engine/configuration";
 import { bscnft, bscmarket } from "../engine/configuration";
@@ -102,6 +103,7 @@ export default function createMarket() {
     var poly = "0x89";
     var bsc = "0x38";
     var eth = "0x1";
+    var rin = "0x4";
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
       var nftcontract = hhnft;
@@ -133,6 +135,8 @@ export default function createMarket() {
       var nftcontract = harnft;
     } else if (connected.chainId == poly) {
       var nftcontract = polnft;
+    } else if (connected.chainId == rin) {
+      var nftcontract = rinnft;
     }
     getNft(nftcontract);
     console.log(nftcontract);
@@ -155,6 +159,7 @@ export default function createMarket() {
     var poly = "0x89";
     var bsc = "0x38";
     var eth = "0x1";
+    var rin = "0x4";
 
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
@@ -187,6 +192,8 @@ export default function createMarket() {
       var market = harmarket;
     } else if (connected.chainId == poly) {
       var market = polmarket;
+    } else if (connected.chainId == rin) {
+      var market = rinmarket;
     }
     getMarket(market);
     console.log(market);

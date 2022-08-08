@@ -117,7 +117,7 @@ function MyApp({ Component, pageProps }) {
                       fontSize: "20px",
                     }}
                   >
-                    Create Portal
+                    Create NFT
                   </a>
                 </Link>
               </Button>
@@ -139,7 +139,7 @@ function MyApp({ Component, pageProps }) {
                       fontSize: "20px",
                     }}
                   >
-                    NFT Portal
+                    My NFTs
                   </a>
                 </Link>
               </Button>

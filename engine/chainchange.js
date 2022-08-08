@@ -407,6 +407,38 @@ export async function ethTest() {
   }
 }
 
+export async function rinTest() {
+  try {
+    await ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0x4" }],
+    });
+  } catch (switchError) {
+    if (switchError.code === 4902) {
+      try {
+        await window.ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [
+            {
+              chainId: "0x4",
+              chainName: "Rinkeby Test Network",
+              nativeCurrency: {
+                name: "ETH",
+                symbol: "ETH",
+                decimals: 18,
+              },
+              rpcUrls: ["https://rpc.ankr.com/eth_rinkeby"],
+              blockExplorerUrls: ["https://rinkeby.etherscan.io/"],
+            },
+          ],
+        });
+      } catch (addError) {
+        console.log("Error adding Chain");
+      }
+    }
+  }
+}
+
 export async function polyTest() {
   try {
     await ethereum.request({

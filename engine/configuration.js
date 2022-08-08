@@ -26,18 +26,9 @@ export const cipherHH = simpleCrypto.encrypt(hhraw);
 //hardhat wallet
 
 /*
-HardHat Testnet
-*/
-//resell smart contract in rinkeby
-export var hhresell = "0x7D8E774Ac5264053986F1f3AC1fE8Eb7f4bFeCe7";
-//pickle nft collection smart contract
-export var hhnftcol = "0x490d7e3C011b446E35e24e5F5d1544C04BD4B3d6";
-var hhrpc = "http://localhost:8545";
-
-/*
 Global Parameters
 */
-export var mainnet = hhrpc;
+export var mainnet = rinrpc;
 
 /*
 IPFS API DETAILS ###########################CHANGE##############
@@ -46,13 +37,24 @@ import { create as ipfsHttpClient } from "ipfs-http-client";
 export const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 /*
-HardHat Testnet
+HardHat Testnet ---ERRORRR
 */
-export var hhresell = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
-export var hhnftcol = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
-export var hhnft = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
-export var hhmarket = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-export var hhrpc = "http://localhost:8545";
+// export var hhresell = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
+// export var hhnftcol = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+// export var hhnft = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+// export var hhmarket = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+// export var hhrpc = "http://localhost:8545";
+
+/**---------------------------ADD OPTIMISM****************************** */
+
+/*
+Rinkeby Testnet ________________IMPORTANT_______________
+*/
+export var rinresell = "0x2805433B892b60FFeF77B1443e8b0900cba60368";
+export var rinnftcol = "0xb9dC8E95A10977f262237E6fCB943551e64a96e4";
+export var rinnft = "0x308Ae97773A0a4aF4b7460A9960b25E50E5e2C5f";
+export var rinmarket = "0xB3c2653748b47Ce71AF5f20589d34dAbdc34fB4F";
+export var rinrpc = "https://rpc.ankr.com/eth_rinkeby";
 
 /*
 Goerli Testnet

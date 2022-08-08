@@ -15,6 +15,7 @@ import {
   bscTest,
   ethTest,
   polyTest,
+  rinTest,
 } from "./chainchange";
 import "sf-font";
 import { Col, Dropdown } from "@nextui-org/react";
@@ -46,6 +47,7 @@ export default function ConnectChain() {
     var goe = "Goerli";
     var hard = "Hardhat";
     var init = "Set Network";
+    var rin = "Rinkeby Test Network";
 
     if (selectedValue == eth) {
       return <h3>Ethereum</h3>;
@@ -77,6 +79,8 @@ export default function ConnectChain() {
       return <h3>Goerli Testnet</h3>;
     } else if (selectedValue == hard) {
       return <h3>Hardhat Node</h3>;
+    } else if (selectedValue == rin) {
+      return <h3>Rinkeby Test Network</h3>;
     } else if (selectedValue == init) {
       return (
         <div className="mt-4">
@@ -103,6 +107,7 @@ export default function ConnectChain() {
     var bsct = "Bsctest";
     var goe = "Goerli";
     var hard = "Hardhat";
+    var rin = "Rinkeby Test Network";
 
     //depending on the selcted value connect to x blockchain
     if (bsc == selectedValue) {
@@ -135,6 +140,8 @@ export default function ConnectChain() {
       ethTest();
     } else if (mum == selectedValue) {
       polyTest();
+    } else if (mum == selectedValue) {
+      rinTest();
     }
   }
 
@@ -182,6 +189,16 @@ export default function ConnectChain() {
               style={{ width: "15px", marginRight: "10px" }}
             />
             Ethereum
+          </Dropdown.Item>
+          <Dropdown.Item
+            textValue="Rinkeby Test Network"
+            key="Rinkeby Test Network"
+          >
+            <img
+              src="ethereumlogo.png"
+              style={{ width: "20px", marginRight: "10px" }}
+            />
+            Rinkeby
           </Dropdown.Item>
           <Dropdown.Item
             textValue="Binance Smart Chain"

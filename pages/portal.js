@@ -19,30 +19,7 @@ import {
 import axios from "axios";
 import "sf-font";
 import Web3 from "web3";
-import {
-  hhresell,
-  hhnftcol,
-  mainnet,
-  cipherHH,
-  simpleCrypto,
-  moonnftcol,
-  bscnftcol,
-  rosenftcol,
-  crorpc,
-  celrpc,
-  ethrpc,
-  bscrpc,
-  roserpc,
-  velrpc,
-  fantrpc,
-  harrpc,
-  polrpc,
-  roseresell,
-  velresell,
-  fantresell,
-  harresell,
-  polresell,
-} from "../engine/configuration.js";
+import { mainnet, cipherHH, simpleCrypto } from "../engine/configuration.js";
 //importing the functions from the chagechain function so we are able to change(ADD THE OTHER ONES THAT WE NEED)
 import {
   polyTest,
@@ -60,6 +37,7 @@ import {
   velasChain,
   moonChain,
   hardChain,
+  rinTest,
 } from "../engine/chainchange";
 //import to be able to see on what blockchain our metamask is connected to.
 import detectEthereumProvider from "@metamask/detect-provider";
@@ -104,6 +82,7 @@ import {
   moonnftcol,
   moonrpc,
 } from "../engine/configuration";
+import { rinnft, rinresell, rinnftcol, rinrpc } from "../engine/configuration";
 import { cipherEth, simpleCrypto } from "../engine/configuration";
 
 export default function Sell() {
@@ -143,6 +122,7 @@ export default function Sell() {
     var pol = "0x89";
     var bsc = "0x38";
     var eth = "0x1";
+    var rin = "0x4";
 
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
@@ -175,6 +155,8 @@ export default function Sell() {
       var mainnet = harrpc;
     } else if (connected.chainId == pol) {
       var mainnet = polrpc;
+    } else if (connected.chainId == rin) {
+      var mainnet = rinrpc;
     }
     getRpc(mainnet);
     console.log(mainnet);
@@ -200,6 +182,7 @@ set the NFT collection smart contract that you want to allow user to sell NFTs f
     var pol = "0x89";
     var bsc = "0x38";
     var eth = "0x1";
+    var rin = "0x4";
 
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
@@ -232,6 +215,8 @@ set the NFT collection smart contract that you want to allow user to sell NFTs f
       var nftcol = harnftcol;
     } else if (connected.chainId == pol) {
       var nftcol = polnftcol;
+    } else if (connected.chainId == rin) {
+      var nftcol = rinnftcol;
     }
     getNftCol(nftcol);
     console.log(nftcol);
@@ -256,6 +241,7 @@ Update the NFT smart contract address of the blockchain that I have selected
     var pol = "0x89";
     var bsc = "0x38";
     var eth = "0x1";
+    var rin = "0x4";
 
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
@@ -288,6 +274,8 @@ Update the NFT smart contract address of the blockchain that I have selected
       var nft = harnft;
     } else if (connected.chainId == pol) {
       var nft = polnft;
+    } else if (connected.chainId == rin) {
+      var nft = rinnft;
     }
     getNftCustom(nft);
     console.log(nft);
@@ -312,6 +300,7 @@ Same aproach, set the NFT resell value, to be the particular smart contract
     var pol = "0x89";
     var bsc = "0x38";
     var eth = "0x1";
+    var rin = "0x4";
 
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
@@ -344,6 +333,8 @@ Same aproach, set the NFT resell value, to be the particular smart contract
       var nftresell = harresell;
     } else if (connected.chainId == pol) {
       var nftresell = polresell;
+    } else if (connected.chainId == rin) {
+      var nftresell = rinresell;
     }
     getNftResell(nftresell);
     console.log(nftresell);
@@ -369,6 +360,7 @@ Same aproach, set the NFT resell value, to be the particular smart contract
     var pol = "0x89";
     var bsc = "0x38";
     var eth = "0x1";
+    var rin = "0x4";
 
     const connected = await detectEthereumProvider();
     if (connected.chainId == hh) {
@@ -401,6 +393,8 @@ Same aproach, set the NFT resell value, to be the particular smart contract
       var chainname = "Harmony";
     } else if (connected.chainId == pol) {
       var chainname = "Polygon";
+    } else if (connected.chainId == rin) {
+      var chainname = "Rinkeby Test Network";
     }
     getChainName(chainname);
     console.log(chainname);
@@ -603,6 +597,9 @@ Funtion to obtain the NFTs that were created
                 </Button>
                 <Button size="sm" onPress={hardChain}>
                   <img src="pickle.png" width={"100px"} />
+                </Button>
+                <Button size="sm" onPress={rinTest}>
+                  <img src="ethereumlogo.png" width={"100px"} />
                 </Button>
                 <Button size="sm" onPress={bscChain}>
                   <img src="bsc.png" width={"100px"} />
