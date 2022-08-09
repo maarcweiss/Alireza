@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Web3Modal from "web3modal";
 import NFT from "../engine/NFT.json";
-import Market from "../engine/Market.json";
+import Market from "../engine/market.json";
 import { mmnft, mmmarket } from "../engine/configuration";
 import { goenft, goemarket } from "../engine/configuration";
 import { hhnft, hhmarket } from "../engine/configuration";
-import { rinnnft, rinnmarket } from "../engine/configuration";
+import { rinnft, rinmarket } from "../engine/configuration";
 import { bsctnft, bsctmarket } from "../engine/configuration";
 import { ethnft, ethmarket } from "../engine/configuration";
 import { bscnft, bscmarket } from "../engine/configuration";
@@ -260,7 +260,7 @@ export default function createMarket() {
     //we will proceed to do the mint
     let transaction = await contract.mintNFT(url, { value: cost });
     await transaction.wait();
-    //It will sedn whoever executed this call back to the portal
+    //It will send whoever executed this call back to the portal
     router.push("/portal");
   }
 

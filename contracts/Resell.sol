@@ -3,7 +3,7 @@ pragma solidity ^0.8.4;
 
 /*
 $$$$$$$$$$$$$$$$$$$$$$$  MUST DO  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-1 when deployed set approval for all the NFT collection si the ERC721 contract part2 48
+1 when deployed set approval for all the NFT collection is the ERC721 contract part2 48
 
 $$$$$$$$$$$$$$$$$$$$$$$$$$  IDEAS  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 1 Set a comision for every sale

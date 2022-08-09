@@ -140,7 +140,7 @@ export default function ConnectChain() {
       ethTest();
     } else if (mum == selectedValue) {
       polyTest();
-    } else if (mum == selectedValue) {
+    } else if (rin == selectedValue) {
       rinTest();
     }
   }

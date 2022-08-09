@@ -19,8 +19,8 @@ import {
 import axios from "axios";
 import "sf-font";
 import Web3 from "web3";
-import { mainnet, cipherHH, simpleCrypto } from "../engine/configuration.js";
-//importing the functions from the chagechain function so we are able to change(ADD THE OTHER ONES THAT WE NEED)
+import { mainnet, cipherHH } from "../engine/configuration.js";
+//importing the functions from the changechain function so we are able to change(ADD THE OTHER ONES THAT WE NEED)
 import {
   polyTest,
   ethTest,
