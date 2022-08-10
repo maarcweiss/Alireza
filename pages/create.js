@@ -281,11 +281,15 @@ export default function createMarket() {
             <Spacer></Spacer>
             <Spacer></Spacer>
             <Text h3 className="ml-3">
-              The NFT Marketplace with a Reward.
+              The best NFT Marketplace.
             </Text>
-            <Text h3>NSN IS More Than A Token</Text>
+            <Text h3>NSN is More Than A Token</Text>
             <Spacer></Spacer>
-            <img src="NFTsolutionLogo.png" width={"300px"} />
+            <img
+              src="NFTsolutionLogo.png"
+              width={"100px"}
+              marginRight={"6px"}
+            />
           </Col>
           <Col css={{ marginRight: "$7" }}>
             <Spacer></Spacer>
@@ -297,13 +301,12 @@ export default function createMarket() {
                 </Text>
               </Card.Body>
             </Card>
-            <img src="chainagnostic.png" />
             <Card css={{ marginTop: "$5" }}>
               <Card.Body style={{ backgroundColor: "#00000040" }}>
                 <Text>
-                  Chain-Agnostic Marketplace that allows you to sell your NFT
-                  and accept your favorite crypto as payment! No borders, No
-                  restrictions. Simple!
+                  NFTsolution Marketplace allows you to sell your NFT and accept
+                  your favorite crypto as payment! No borders, No restrictions.
+                  Simple!
                 </Text>
               </Card.Body>
             </Card>
@@ -322,7 +325,7 @@ export default function createMarket() {
                 <Card.Body style={{ backgroundColor: "#000000" }}>
                   <Input
                     /**First input */
-                    placeholder="Enter your NFT Name"
+                    placeholder="Enter your NFT Name:"
                     onChange={(e) =>
                       updateFormInput({ ...formInput, name: e.target.value })
                     }
@@ -332,7 +335,7 @@ export default function createMarket() {
               <Card>
                 <Card.Body style={{ backgroundColor: "#000000" }}>
                   <Input
-                    placeholder="NFT Description"
+                    placeholder="The NFT Description:"
                     onChange={(e) =>
                       /**This is where we invoke the call to get the input info */
                       updateFormInput({
@@ -362,7 +365,7 @@ export default function createMarket() {
                 <Button
                   /**First button to list your NFT */
                   size="sm"
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "18px" }}
                   onPress={createMarket}
                   css={{
                     marginTop: "$2",
@@ -370,11 +373,11 @@ export default function createMarket() {
                     color: "$gradient",
                   }}
                 >
-                  List your NFT!
+                  List your NFT in our marketplace!
                 </Button>
                 <Button
                   size="sm"
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "18px" }}
                   onPress={buyNFT}
                   css={{
                     marginTop: "$2",
@@ -382,7 +385,7 @@ export default function createMarket() {
                     color: "$gradient",
                   }}
                 >
-                  Buy your NFT!
+                  Buy your new NFT!
                 </Button>
               </Container>
             </Card>

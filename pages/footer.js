@@ -59,9 +59,10 @@ export default function Footer() {
                   style={{
                     color: "#fff",
                     fontSmooth: "always",
-                    textShadow: "-0px 0px 3px #ffffff",
+                    textShadow: "-0px 0px 0px #ffffff",
                     fontFamily: "SF Pro Display",
-                    fontWeight: "700",
+                    fontWeight: "600",
+                    textAlign: "right",
                   }}
                 >
                   NFTSolution.Network

@@ -1,17 +1,3 @@
-/*
-Update values accordingly
-xxnft is the NFT SmartContract Address
-xxmarket is the NFT MarketPlace Address
-xxresell is the NFT MarketResell Address
-xxnftcol is the already create NFT Collection Address
-*/
-
-/*
-Private Key Encryption
-Replace ethraw with your private key "0xPRIVATEKEY" (Ethereum and other EVM)
-Replace hhraw with your private key "0xPRIVATEKEY" (Hardhat)
-*/
-
 import SimpleCrypto from "simple-crypto-js";
 //to encrypt the private key when I send or request in another page. So if someone presses F12 and looks for the private key
 //all they are going to see is an encrypted variable
@@ -21,14 +7,7 @@ const ethraw = "process.env.PRIVATE_KEY";
 const hhraw = "process.env.HARDHAT_PRIVATE_KEY";
 export const simpleCrypto = new SimpleCrypto(cipherKey);
 export const cipherEth = simpleCrypto.encrypt(ethraw);
-//ethraw will allow me to interact with ethereum binance or polygon
-export const cipherHH = simpleCrypto.encrypt(hhraw);
-//hardhat wallet
-
-/*
-Global Parameters
-*/
-export var mainnet = rinrpc;
+//ethraw will allow me to interact with ethereum binance, polygon and EVMs
 
 /*
 IPFS API DETAILS ###########################CHANGE##############
@@ -36,25 +15,21 @@ IPFS API DETAILS ###########################CHANGE##############
 import { create as ipfsHttpClient } from "ipfs-http-client";
 export const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
-/*
-HardHat Testnet ---ERRORRR
-*/
-// export var hhresell = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
-// export var hhnftcol = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
-// export var hhnft = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
-// export var hhmarket = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-// export var hhrpc = "http://localhost:8545";
-
 /**---------------------------ADD OPTIMISM****************************** */
 
 /*
-Rinkeby Testnet ________________IMPORTANT_______________
+Rinkeby Testnet 
 */
 export var rinresell = "0x2805433B892b60FFeF77B1443e8b0900cba60368";
 export var rinnftcol = "0xb9dC8E95A10977f262237E6fCB943551e64a96e4";
 export var rinnft = "0x308Ae97773A0a4aF4b7460A9960b25E50E5e2C5f";
 export var rinmarket = "0xB3c2653748b47Ce71AF5f20589d34dAbdc34fB4F";
 export var rinrpc = "https://rpc.ankr.com/eth_rinkeby";
+
+/*
+Global Parameters
+*/
+export var mainnet = rinrpc;
 
 /*
 Goerli Testnet

@@ -19,7 +19,6 @@ import {
 import axios from "axios";
 import "sf-font";
 import Web3 from "web3";
-import { mainnet, cipherHH } from "../engine/configuration.js";
 //importing the functions from the changechain function so we are able to change(ADD THE OTHER ONES THAT WE NEED)
 import {
   polyTest,
@@ -83,12 +82,13 @@ import {
   moonrpc,
 } from "../engine/configuration";
 import { rinnft, rinresell, rinnftcol, rinrpc } from "../engine/configuration";
-import { cipherEth, simpleCrypto } from "../engine/configuration";
+import { mainnet, cipherEth, simpleCrypto } from "../engine/configuration";
 
 export default function Sell() {
   const [user, getUser] = useState([]);
   const [chain, getChainName] = useState([]);
   //get the RPC to use it in the function getWalletNFts to connect to blockchains
+  //----------------use RPC instead of mainnet when really deploying------------
   const [rpc, getRpc] = useState([]);
   const [nftcol, getNftCol] = useState([]);
   const [nftcustom, getNftCustom] = useState([]);
@@ -420,13 +420,23 @@ Same aproach, set the NFT resell value, to be the particular smart contract
   /*
   get the NFT that a wallet holds
   mainnet comes from configuration.js, I need to be able to swap the mainnet and
-  the hhnftcol to the actual chain RPC address on the fly
+  to the actual chain RPC address on the fly
+  ###################################
+  Most important function in our site. It is going to enable us to get all the metadata from the NFTs without the need of any API
+  ###################################
+  What the function does
+  1 Contact the nftcontract and gets the token supply(the NFTs minted)
+  2 Calls the owner of the TokenId while finding on the loop
+  3 After I got the owner, we take the tokenURI for this tokenId and this will give me the value in IPFS://....json
+  4 convert this ipfs into https://ipfs.io/
+  5 after it will render the image
   */
   async function getWalletNFTs() {
     var address = nftcol;
-    var network = rpc;
+    //var network = rpc;
     console.log(address);
-    const provider = new ethers.providers.JsonRpcProvider(network);
+    const provider = new ethers.providers.JsonRpcProvider(mainnet);
+    //it grabs the cypher private key just imported
     const key = simpleCrypto.decrypt(cipherEth);
     const wallet = new ethers.Wallet(key, provider);
     const contract = new ethers.Contract(address, NFTCollection, wallet);
@@ -439,6 +449,7 @@ Same aproach, set the NFT resell value, to be the particular smart contract
     contract.totalSupply().then((result) => {
       for (let i = 0; i < result; i++) {
         var token = i + 1;
+        //I am token the owner of the NFT
         const owner = contract.ownerOf(token).catch(function (error) {
           console.log("tokens filtered");
         });
@@ -457,9 +468,12 @@ Same aproach, set the NFT resell value, to be the particular smart contract
           let rawImg = value.data.image;
           var name = value.data.name;
           var desc = value.data.description;
+          //START BUILDING THE IMAGE
           let image = rawImg.replace("ipfs://", "https://ipfs.io/ipfs/");
           Promise.resolve(owner).then((value) => {
+            //it gives the hexadecimal wallet address
             let ownerW = value;
+            //get the tokens from the owner wallet
             let meta = {
               name: name,
               img: image,
@@ -475,6 +489,7 @@ Same aproach, set the NFT resell value, to be the particular smart contract
     });
     //wait 2 seconds to let the html render
     await new Promise((r) => setTimeout(r, 2000));
+    //I store all the info in the array
     setNfts(itemArray);
     setLoadingState("loaded");
   }
@@ -483,8 +498,8 @@ Funtion to obtain the NFTs that were created
 */
   async function getCreatedNFTs() {
     var address = nftcustom;
-    var network = rpc;
-    const provider = new ethers.providers.JsonRpcProvider(network);
+    //var network = rpc;
+    const provider = new ethers.providers.JsonRpcProvider(mainnet);
     const key = simpleCrypto.decrypt(cipherEth);
     const wallet = new ethers.Wallet(key, provider);
     const contract = new ethers.Contract(address, NFT, wallet);
@@ -669,16 +684,21 @@ Funtion to obtain the NFTs that were created
           <Grid.Container gap={3}>
             {nfts.map((nft, i) => {
               var owner = user;
+              //get the output from meta in getWalletNFTs(metadata)
+              //if whoever connected to the app is == to the wallet owner of the NFT just stored, the proceed to render
               if (owner.indexOf(nft.wallet) !== -1) {
                 async function executeRelist() {
                   const { price } = resalePrice;
+                  //if the NFT has a price then execute the relist function
                   if (!price) return;
                   try {
                     relistNFT();
                   } catch (error) {
+                    //if the user does not input a price set an error
                     console.log("Transaction Failed", error);
                   }
                 }
+                //function that is going to talk to the marketplace smart contract and allow you to relist
                 async function relistNFT() {
                   var resell = nftresell;
                   const web3Modal = new Web3Modal();
@@ -687,6 +707,7 @@ Funtion to obtain the NFTs that were created
                     connection
                   );
                   const signer = provider.getSigner();
+                  //convert the value into ether
                   const price = ethers.utils.parseUnits(
                     resalePrice.price,
                     "ether"
@@ -696,10 +717,14 @@ Funtion to obtain the NFTs that were created
                     NFTCollection,
                     signer
                   );
+                  //set approvalforall because we are moving the NFT to another smart contract
                   await contractnft.setApprovalForAll(resell, true);
+                  //calling the contract and the resell smart contract and the resell abi and the signer that is the wallet
                   let contract = new ethers.Contract(resell, Resell, signer);
+                  //get the listing fee and convert it to string
                   let listingFee = await contract.getListingFee();
                   listingFee = listingFee.toString();
+                  //send the request to list the NFT for sale
                   let transaction = await contract.listSale(
                     nft.tokenId,
                     price,
@@ -748,6 +773,7 @@ Funtion to obtain the NFTs that were created
                               fontSize: "15px",
                             }}
                             placeholder="Set your price"
+                            //putting a value and calling the upper function
                             onChange={(e) =>
                               updateresalePrice({
                                 ...resalePrice,

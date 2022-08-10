@@ -14,8 +14,9 @@ import Footer from "./footer";
 //import the file that enables to change the blockchains
 import Connectchain from "../engine/connectchain";
 
+//entire stiling component of the web front end: following nextui docs
 const theme = createTheme({
-  type: "dark",
+  type: "white",
   theme: {
     fontFamily: "SF Pro Display",
     colors: {
@@ -45,7 +46,7 @@ const theme = createTheme({
 function MyApp({ Component, pageProps }) {
   return (
     <div>
-      <div style={{ background: "white" }}>
+      <div style={{ background: "grey" }}>
         <Container lg css={{ marginTop: "$5" }}>
           <Row justify="center">
             <Col css={{ marginTop: "$1" }}>
