@@ -82,7 +82,12 @@ import {
   moonrpc,
 } from "../engine/configuration";
 import { rinnft, rinresell, rinnftcol, rinrpc } from "../engine/configuration";
-import { mainnet, cipherEth, simpleCrypto } from "../engine/configuration";
+import {
+  mainnet,
+  cipherEth,
+  simpleCrypto,
+  ethraw,
+} from "../engine/configuration";
 
 export default function Sell() {
   const [user, getUser] = useState([]);
@@ -500,8 +505,8 @@ Funtion to obtain the NFTs that were created
     var address = nftcustom;
     //var network = rpc;
     const provider = new ethers.providers.JsonRpcProvider(mainnet);
-    const key = simpleCrypto.decrypt(cipherEth);
-    const wallet = new ethers.Wallet(key, provider);
+    // const key = simpleCrypto.decrypt(cipherEth);
+    const wallet = new ethers.Wallet(ethraw, provider);
     const contract = new ethers.Contract(address, NFT, wallet);
     const itemArray = [];
     //calling the tokenIds

@@ -152,6 +152,7 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </NextUIProvider>
         <Footer>
+          //////////CHNAGE THE FOOTER
           <Footer />
         </Footer>
       </div>

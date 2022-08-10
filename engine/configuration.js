@@ -1,12 +1,16 @@
 import SimpleCrypto from "simple-crypto-js";
 //to encrypt the private key when I send or request in another page. So if someone presses F12 and looks for the private key
 //all they are going to see is an encrypted variable
-const cipherKey = "#ffg3$dvcv4rtkljjkh38hhjgt";
+
+export const ethraw = process.env.PRIVATE_KEY;
+
+//*******************PAST ENCRYPTION OF PRIVATE_KEY*****************
+
+//const cipherKey = "#ffg3$dvcv4rtkljjkh38hhjgt";
 //cipherKey is what is going to be used to hash the private key (random string)
-const ethraw = "process.env.PRIVATE_KEY";
-const hhraw = "process.env.HARDHAT_PRIVATE_KEY";
-export const simpleCrypto = new SimpleCrypto(cipherKey);
-export const cipherEth = simpleCrypto.encrypt(ethraw);
+// export const simpleCrypto = new SimpleCrypto(cipherKey);
+// export const cipherEth = simpleCrypto.encrypt(ethraw);
+
 //ethraw will allow me to interact with ethereum binance, polygon and EVMs
 
 /*

@@ -16,6 +16,7 @@
     "@types/react": "^18.0.15",
     "canvas-confetti": "^1.5.1",
     "dotenv": "^16.0.1",
+    "fs": "^0.0.1-security",
     "hardhat-preprocessor": "^0.1.4",
     "hardhat-watcher": "^2.3.0",
     "ipfs-http-client": "^57.0.3",
@@ -50,6 +51,9 @@
     "typechain": "^8.1.0"
   },
   "browser": {
-    "crypto": false
+    "crypto": false,
+    "fs": "empty",
+    "path": false,
+    "os": false
   }
 }

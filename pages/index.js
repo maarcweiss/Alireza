@@ -7,6 +7,9 @@ import NFTCollection from "../engine/NFTCollection.json";
 import Resell from "../engine/Resell.json";
 import Market from "../engine/market.json";
 import NFT from "../engine/NFT.json";
+import {} from "dotenv/config";
+require("dotenv").config();
+import { fs } from "fs";
 import {
   Grid,
   Card,
@@ -16,27 +19,6 @@ import {
   Spacer,
   Container,
 } from "@nextui-org/react";
-import {
-  hhnft,
-  hhmarket,
-  hhresell,
-  hhnftcol,
-  hhrpc,
-} from "../engine/configuration";
-import {
-  goenft,
-  goemarket,
-  goeresell,
-  goenftcol,
-  goerpc,
-} from "../engine/configuration";
-import {
-  bsctnft,
-  bsctmarket,
-  bsctresell,
-  bsctnftcol,
-  bsctrpc,
-} from "../engine/configuration";
 import {
   rinnft,
   rinmarket,
@@ -51,38 +33,22 @@ import {
   mmnftcol,
   mmrpc,
 } from "../engine/configuration";
-import { cipherEth, simpleCrypto } from "../engine/configuration";
+import { cipherEth, simpleCrypto, ethraw } from "../engine/configuration";
 import confetti from "canvas-confetti";
 import "sf-font";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 export default function Home() {
-  const [hhlist, hhResellNfts] = useState([]);
-  const [hhnfts, hhsetNfts] = useState([]);
-  const [goelist, goeResellNfts] = useState([]);
-  const [goenfts, goesetNfts] = useState([]);
-  const [bsctlist, bsctResellNfts] = useState([]);
-  const [bsctnfts, bsctsetNfts] = useState([]);
-  const [mmlist, MumResellNfts] = useState([]);
-  const [mmnfts, MumsetNfts] = useState([]);
+  // const [mmlist, MumResellNfts] = useState([]);
+  // const [mmnfts, MumsetNfts] = useState([]);
   const [rinlist, rinResellNfts] = useState([]);
   const [rinnfts, rinsetNfts] = useState([]);
 
   useEffect(() => {
-    loadHardHatResell();
-    loadGoerliResell();
-    loadBsctResell();
     loadRinkebyResell();
-  }, [
-    hhResellNfts,
-    hhsetNfts,
-    goeResellNfts,
-    goesetNfts,
-    bsctResellNfts,
-    bsctsetNfts,
-    rinsetNfts,
-  ]);
+    // loadMumResell();
+  }, [rinsetNfts]);
 
   const handleConfetti = () => {
     confetti();
@@ -95,8 +61,8 @@ export default function Home() {
 
   async function loadRinkebyResell() {
     const provider = new ethers.providers.JsonRpcProvider(rinrpc);
-    const key = simpleCrypto.decrypt(cipherEth);
-    const wallet = new ethers.Wallet(key, provider);
+    // const key = simpleCrypto.decrypt(ethraw);
+    const wallet = new ethers.Wallet(ethraw, provider);
     const contract = new ethers.Contract(rinnftcol, NFTCollection, wallet);
     const market = new ethers.Contract(rinresell, Resell, wallet);
     const itemArray = [];
@@ -189,7 +155,7 @@ export default function Home() {
       const signer = provider.getSigner();
       const contract = new ethers.Contract(rinmarket, Market, signer);
       const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
-      const transaction = await contract.n2DMarketSale(rinnft, nft.tokenId, {
+      const transaction = await contract.MarketSale(rinnft, nft.tokenId, {
         value: price,
       });
       await transaction.wait();
@@ -197,328 +163,112 @@ export default function Home() {
     }
 
     /*
-  Goerli Listings Functions
-  */
-
-    async function loadGoerliResell() {
-      const provider = new ethers.providers.JsonRpcProvider(goerpc);
-      const key = simpleCrypto.decrypt(cipherEth);
-      const wallet = new ethers.Wallet(key, provider);
-      const contract = new ethers.Contract(goenftcol, NFTCollection, wallet);
-      const market = new ethers.Contract(goeresell, Resell, wallet);
-      const itemArray = [];
-      contract.totalSupply().then((result) => {
-        for (let i = 0; i < result; i++) {
-          var token = i + 1;
-          var owner = contract.ownerOf(token);
-          var getOwner = Promise.resolve(owner);
-          getOwner.then((address) => {
-            if (address == goeresell) {
-              const rawUri = contract.tokenURI(token);
-              const Uri = Promise.resolve(rawUri);
-              const getUri = Uri.then((value) => {
-                let str = value;
-                let cleanUri = str.replace("ipfs://", "https://ipfs.io/ipfs/");
-                console.log(cleanUri);
-                let metadata = axios.get(cleanUri).catch(function (error) {
-                  console.log(error.toJSON());
-                });
-                return metadata;
-              });
-              getUri.then((value) => {
-                let rawImg = value.data.image;
-                var name = value.data.name;
-                var desc = value.data.description;
-                let image = rawImg.replace("ipfs://", "https://ipfs.io/ipfs/");
-                const price = market.getPrice(token);
-                Promise.resolve(price).then((_hex) => {
-                  var salePrice = Number(_hex);
-                  var txPrice = salePrice.toString();
-                  Promise.resolve(owner).then((value) => {
-                    let ownerW = value;
-                    let outPrice = ethers.utils.formatUnits(
-                      salePrice.toString(),
-                      "ether"
-                    );
-                    let meta = {
-                      name: name,
-                      img: image,
-                      cost: txPrice,
-                      val: outPrice,
-                      tokenId: token,
-                      wallet: ownerW,
-                      desc,
-                    };
-                    console.log(meta);
-                    itemArray.push(meta);
-                  });
-                });
-              });
-            }
-          });
-        }
-      });
-      await new Promise((r) => setTimeout(r, 3000));
-      goeResellNfts(itemArray);
-      loadGoeSaleNFTs();
-    }
-
-    async function loadGoeSaleNFTs() {
-      const hhPrivkey = simpleCrypto.decrypt(cipherEth);
-      const provider = new ethers.providers.JsonRpcProvider(goerpc);
-      const wallet = new ethers.Wallet(hhPrivkey, provider);
-      const tokenContract = new ethers.Contract(goenft, NFT, wallet);
-      const marketContract = new ethers.Contract(goemarket, Market, wallet);
-      const data = await marketContract.getAvailableNft();
-      const items = await Promise.all(
-        data.map(async (i) => {
-          const tokenUri = await tokenContract.tokenURI(i.tokenId);
-          const meta = await axios.get(tokenUri);
-          let price = ethers.utils.formatUnits(i.price.toString(), "ether");
-          let item = {
-            price,
-            tokenId: i.tokenId.toNumber(),
-            seller: i.seller,
-            owner: i.owner,
-            image: meta.data.image,
-            name: meta.data.name,
-            description: meta.data.description,
-          };
-          return item;
-        })
-      );
-      goesetNfts(items);
-    }
-
-    async function buyNewGoe(nft) {
-      const web3Modal = new Web3Modal();
-      const connection = await web3Modal.connect();
-      const provider = new ethers.providers.Web3Provider(connection);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(goemarket, Market, signer);
-      const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
-      const transaction = await contract.n2DMarketSale(goenft, nft.tokenId, {
-        value: price,
-      });
-      await transaction.wait();
-      loadGoeSaleNFTs();
-    }
-
-    /*
-  BSCT Listings Functions
-  */
-
-    async function loadBsctResell() {
-      const provider = new ethers.providers.JsonRpcProvider(bsctrpc);
-      const key = simpleCrypto.decrypt(cipherEth);
-      const wallet = new ethers.Wallet(key, provider);
-      const contract = new ethers.Contract(bsctnftcol, NFTCollection, wallet);
-      const market = new ethers.Contract(bsctresell, Resell, wallet);
-      const itemArray = [];
-      contract.totalSupply().then((result) => {
-        for (let i = 0; i < result; i++) {
-          var token = i + 1;
-          var owner = contract.ownerOf(token);
-          var getOwner = Promise.resolve(owner);
-          getOwner.then((address) => {
-            if (address == bsctresell) {
-              const rawUri = contract.tokenURI(token);
-              const Uri = Promise.resolve(rawUri);
-              const getUri = Uri.then((value) => {
-                let str = value;
-                let cleanUri = str.replace("ipfs://", "https://ipfs.io/ipfs/");
-                console.log(cleanUri);
-                let metadata = axios.get(cleanUri).catch(function (error) {
-                  console.log(error.toJSON());
-                });
-                return metadata;
-              });
-              getUri.then((value) => {
-                let rawImg = value.data.image;
-                var name = value.data.name;
-                var desc = value.data.description;
-                let image = rawImg.replace("ipfs://", "https://ipfs.io/ipfs/");
-                const price = market.getPrice(token);
-                Promise.resolve(price).then((_hex) => {
-                  var salePrice = Number(_hex);
-                  var txPrice = salePrice.toString();
-                  Promise.resolve(owner).then((value) => {
-                    let ownerW = value;
-                    let outPrice = ethers.utils.formatUnits(
-                      salePrice.toString(),
-                      "ether"
-                    );
-                    let meta = {
-                      name: name,
-                      img: image,
-                      cost: txPrice,
-                      val: outPrice,
-                      tokenId: token,
-                      wallet: ownerW,
-                      desc,
-                    };
-                    console.log(meta);
-                    itemArray.push(meta);
-                  });
-                });
-              });
-            }
-          });
-        }
-      });
-      await new Promise((r) => setTimeout(r, 3000));
-      bsctResellNfts(itemArray);
-      loadBsctSaleNFTs();
-    }
-
-    async function loadBsctSaleNFTs() {
-      const hhPrivkey = simpleCrypto.decrypt(cipherEth);
-      const provider = new ethers.providers.JsonRpcProvider(bsctrpc);
-      const wallet = new ethers.Wallet(hhPrivkey, provider);
-      const tokenContract = new ethers.Contract(bsctnft, NFT, wallet);
-      const marketContract = new ethers.Contract(bsctmarket, Market, wallet);
-      const data = await marketContract.getAvailableNft();
-      const items = await Promise.all(
-        data.map(async (i) => {
-          const tokenUri = await tokenContract.tokenURI(i.tokenId);
-          const meta = await axios.get(tokenUri);
-          let price = ethers.utils.formatUnits(i.price.toString(), "ether");
-          let item = {
-            price,
-            tokenId: i.tokenId.toNumber(),
-            seller: i.seller,
-            owner: i.owner,
-            image: meta.data.image,
-            name: meta.data.name,
-            description: meta.data.description,
-          };
-          return item;
-        })
-      );
-      bsctsetNfts(items);
-    }
-
-    async function buyNewBsct(nft) {
-      const web3Modal = new Web3Modal();
-      const connection = await web3Modal.connect();
-      const provider = new ethers.providers.Web3Provider(connection);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(bsctmarket, Market, signer);
-      const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
-      const transaction = await contract.n2DMarketSale(bsctnft, nft.tokenId, {
-        value: price,
-      });
-      await transaction.wait();
-      loadBsctSaleNFTs();
-    }
-
-    /*
   Mumbai Listings Functions
   */
 
-    async function loadMumResell() {
-      const provider = new ethers.providers.JsonRpcProvider(mmrpc);
-      const key = simpleCrypto.decrypt(cipherEth);
-      const wallet = new ethers.Wallet(key, provider);
-      const contract = new ethers.Contract(mmnftcol, NFTCollection, wallet);
-      const market = new ethers.Contract(mmresell, Resell, wallet);
-      const itemArray = [];
-      contract.totalSupply().then((result) => {
-        for (let i = 0; i < result; i++) {
-          var token = i + 1;
-          var owner = contract.ownerOf(token);
-          var getOwner = Promise.resolve(owner);
-          getOwner.then((address) => {
-            if (address == mmresell) {
-              const rawUri = contract.tokenURI(token);
-              const Uri = Promise.resolve(rawUri);
-              const getUri = Uri.then((value) => {
-                let str = value;
-                let cleanUri = str.replace("ipfs://", "https://ipfs.io/ipfs/");
-                console.log(cleanUri);
-                let metadata = axios.get(cleanUri).catch(function (error) {
-                  console.log(error.toJSON());
-                });
-                return metadata;
-              });
-              getUri.then((value) => {
-                let rawImg = value.data.image;
-                var name = value.data.name;
-                var desc = value.data.description;
-                let image = rawImg.replace("ipfs://", "https://ipfs.io/ipfs/");
-                const price = market.getPrice(token);
-                Promise.resolve(price).then((_hex) => {
-                  var salePrice = Number(_hex);
-                  var txPrice = salePrice.toString();
-                  Promise.resolve(owner).then((value) => {
-                    let ownerW = value;
-                    let outPrice = ethers.utils.formatUnits(
-                      salePrice.toString(),
-                      "ether"
-                    );
-                    let meta = {
-                      name: name,
-                      img: image,
-                      cost: txPrice,
-                      val: outPrice,
-                      tokenId: token,
-                      wallet: ownerW,
-                      desc,
-                    };
-                    console.log(meta);
-                    itemArray.push(meta);
-                  });
-                });
-              });
-            }
-          });
-        }
-      });
-      await new Promise((r) => setTimeout(r, 3000));
-      MumResellNfts(itemArray);
-      loadMumSaleNFTs();
-    }
+    // async function loadMumResell() {
+    //   const provider = new ethers.providers.JsonRpcProvider(mmrpc);
+    //   // const key = simpleCrypto.decrypt(cipherEth);
+    //   const wallet = new ethers.Wallet(ethraw, provider);
+    //   const contract = new ethers.Contract(mmnftcol, NFTCollection, wallet);
+    //   const market = new ethers.Contract(mmresell, Resell, wallet);
+    //   const itemArray = [];
+    //   contract.totalSupply().then((result) => {
+    //     for (let i = 0; i < result; i++) {
+    //       var token = i + 1;
+    //       var owner = contract.ownerOf(token);
+    //       var getOwner = Promise.resolve(owner);
+    //       getOwner.then((address) => {
+    //         if (address == mmresell) {
+    //           const rawUri = contract.tokenURI(token);
+    //           const Uri = Promise.resolve(rawUri);
+    //           const getUri = Uri.then((value) => {
+    //             let str = value;
+    //             let cleanUri = str.replace("ipfs://", "https://ipfs.io/ipfs/");
+    //             console.log(cleanUri);
+    //             let metadata = axios.get(cleanUri).catch(function (error) {
+    //               console.log(error.toJSON());
+    //             });
+    //             return metadata;
+    //           });
+    //           getUri.then((value) => {
+    //             let rawImg = value.data.image;
+    //             var name = value.data.name;
+    //             var desc = value.data.description;
+    //             let image = rawImg.replace("ipfs://", "https://ipfs.io/ipfs/");
+    //             const price = market.getPrice(token);
+    //             Promise.resolve(price).then((_hex) => {
+    //               var salePrice = Number(_hex);
+    //               var txPrice = salePrice.toString();
+    //               Promise.resolve(owner).then((value) => {
+    //                 let ownerW = value;
+    //                 let outPrice = ethers.utils.formatUnits(
+    //                   salePrice.toString(),
+    //                   "ether"
+    //                 );
+    //                 let meta = {
+    //                   name: name,
+    //                   img: image,
+    //                   cost: txPrice,
+    //                   val: outPrice,
+    //                   tokenId: token,
+    //                   wallet: ownerW,
+    //                   desc,
+    //                 };
+    //                 console.log(meta);
+    //                 itemArray.push(meta);
+    //               });
+    //             });
+    //           });
+    //         }
+    //       });
+    //     }
+    //   });
+    //   await new Promise((r) => setTimeout(r, 3000));
+    //   MumResellNfts(itemArray);
+    //   loadMumSaleNFTs();
+    // }
 
-    async function loadMumSaleNFTs() {
-      const hhPrivkey = simpleCrypto.decrypt(cipherEth);
-      const provider = new ethers.providers.JsonRpcProvider(bsctrpc);
-      const wallet = new ethers.Wallet(hhPrivkey, provider);
-      const tokenContract = new ethers.Contract(mmnft, NFT, wallet);
-      const marketContract = new ethers.Contract(mmmarket, Market, wallet);
-      const data = await marketContract.getAvailableNft();
-      const items = await Promise.all(
-        data.map(async (i) => {
-          const tokenUri = await tokenContract.tokenURI(i.tokenId);
-          const meta = await axios.get(tokenUri);
-          let price = ethers.utils.formatUnits(i.price.toString(), "ether");
-          let item = {
-            price,
-            tokenId: i.tokenId.toNumber(),
-            seller: i.seller,
-            owner: i.owner,
-            image: meta.data.image,
-            name: meta.data.name,
-            description: meta.data.description,
-          };
-          return item;
-        })
-      );
-      MumsetNfts(items);
-    }
+    // async function loadMumSaleNFTs() {
+    //   const hhPrivkey = simpleCrypto.decrypt(cipherEth);
+    //   const provider = new ethers.providers.JsonRpcProvider(bsctrpc);
+    //   const wallet = new ethers.Wallet(hhPrivkey, provider);
+    //   const tokenContract = new ethers.Contract(mmnft, NFT, wallet);
+    //   const marketContract = new ethers.Contract(mmmarket, Market, wallet);
+    //   const data = await marketContract.getAvailableNft();
+    //   const items = await Promise.all(
+    //     data.map(async (i) => {
+    //       const tokenUri = await tokenContract.tokenURI(i.tokenId);
+    //       const meta = await axios.get(tokenUri);
+    //       let price = ethers.utils.formatUnits(i.price.toString(), "ether");
+    //       let item = {
+    //         price,
+    //         tokenId: i.tokenId.toNumber(),
+    //         seller: i.seller,
+    //         owner: i.owner,
+    //         image: meta.data.image,
+    //         name: meta.data.name,
+    //         description: meta.data.description,
+    //       };
+    //       return item;
+    //     })
+    //   );
+    //   MumsetNfts(items);
+    // }
 
-    async function buyNewMum(nft) {
-      const web3Modal = new Web3Modal();
-      const connection = await web3Modal.connect();
-      const provider = new ethers.providers.Web3Provider(connection);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(mmmarket, Market, signer);
-      const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
-      const transaction = await contract.n2DMarketSale(mmnft, nft.tokenId, {
-        value: price,
-      });
-      await transaction.wait();
-      loadMumSaleNFTs();
-    }
+    // async function buyNewMum(nft) {
+    //   const web3Modal = new Web3Modal();
+    //   const connection = await web3Modal.connect();
+    //   const provider = new ethers.providers.Web3Provider(connection);
+    //   const signer = provider.getSigner();
+    //   const contract = new ethers.Contract(mmmarket, Market, signer);
+    //   const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
+    //   const transaction = await contract.MarketSale(mmnft, nft.tokenId, {
+    //     value: price,
+    //   });
+    //   await transaction.wait();
+    //   loadMumSaleNFTs();
+    // }
 
     const responsive = {
       desktop: {
@@ -587,8 +337,10 @@ export default function Home() {
             <Text h3>Latest Relisted NFT's on </Text>
           </Row>
           <Grid.Container gap={1} justify="flex-start">
-            {hhlist.slice(0, 9).map((nft, id) => {
+            {rinlist.slice(0, 9).map((nft, id) => {
+              //this map just takes 9 nfts in the carousel(values through indec)
               async function buylistNft() {
+                //it is going to call the wallet and grab the wallet address signer and if the user buys the NFT we are going to provide that NFT cost
                 const web3Modal = new Web3Modal();
                 const connection = await web3Modal.connect();
                 const provider = new ethers.providers.Web3Provider(connection);
@@ -647,6 +399,7 @@ export default function Home() {
                         <Button
                           color="gradient"
                           style={{ fontSize: "20px" }}
+                          //every time someone buys it will show the confetti
                           onPress={() => handleConfetti(buylistNft(nft))}
                         >
                           Buy
@@ -715,312 +468,6 @@ export default function Home() {
                         color="gradient"
                         style={{ fontSize: "20px" }}
                         onClick={() => handleConfetti(buyNewRin(nft))}
-                      >
-                        Buy
-                      </Button>
-                    </Row>
-                  </Card.Footer>
-                </Card>
-              </Grid>
-            ))}
-          </Grid.Container>
-        </Container>
-        <Container sm>
-          <Row css={{ marginTop: "$3", marginBottom: "$3" }}>
-            <Text h3>Latest Relisted NFT's on </Text>
-            <img
-              src="ethereumlogo.png"
-              style={{ width: "190px", height: "45px", marginLeft: "4px" }}
-            />
-          </Row>
-          <Grid.Container gap={1} justify="flex-start">
-            {goelist.slice(0, 9).map((nft, id) => {
-              async function buylistNft() {
-                const web3Modal = new Web3Modal();
-                const connection = await web3Modal.connect();
-                const provider = new ethers.providers.Web3Provider(connection);
-                const signer = provider.getSigner();
-                const contract = new ethers.Contract(goeresell, Resell, signer);
-                const transaction = await contract.buyNft(nft.tokenId, {
-                  value: nft.cost,
-                });
-                await transaction.wait();
-                router.push("/portal");
-              }
-              return (
-                <Grid xs={3}>
-                  <Card
-                    style={{ boxShadow: "1px 1px 10px #ffffff" }}
-                    variant="bordered"
-                    key={id}
-                  >
-                    <Text
-                      style={{
-                        color: "white",
-                        fontWeight: "bold",
-                        fontFamily: "SF Pro Display",
-                        fontWeight: "200",
-                        fontSize: "20px",
-                        marginLeft: "3px",
-                      }}
-                    >
-                      {nft.name} Token-{nft.tokenId}
-                    </Text>
-                    <Card.Body css={{ p: 0 }}>
-                      <Card.Image
-                        style={{ maxWidth: "150px", borderRadius: "6%" }}
-                        src={nft.img}
-                      />
-                    </Card.Body>
-                    <Card.Footer css={{ justifyItems: "flex-start" }}>
-                      <Row
-                        key={id}
-                        wrap="wrap"
-                        justify="space-between"
-                        align="center"
-                      >
-                        <Text wrap="wrap">{nft.desc}</Text>
-                        <Text style={{ fontSize: "30px" }}>
-                          {nft.val}{" "}
-                          <img
-                            src="NFTsolutionLogo.png"
-                            style={{
-                              width: "60px",
-                              height: "25px",
-                              marginTop: "4px",
-                            }}
-                          />
-                        </Text>
-                        <Button
-                          color="gradient"
-                          style={{ fontSize: "20px" }}
-                          onPress={() => handleConfetti(buylistNft(nft))}
-                        >
-                          Buy
-                        </Button>
-                      </Row>
-                    </Card.Footer>
-                  </Card>
-                </Grid>
-              );
-            })}
-          </Grid.Container>
-        </Container>
-        <Spacer></Spacer>
-        <Container sm>
-          <Row css={{ marginTop: "$3", marginBottom: "$3" }}>
-            <Text h3>Latest NFT's on</Text>
-            <img
-              src="ethereumlogo.png"
-              style={{ width: "190px", height: "45px", marginLeft: "4px" }}
-            />
-          </Row>
-          <Grid.Container gap={1} justify="flex-start">
-            {goenfts.slice(0, 4).map((nft, i) => (
-              <Grid xs={3}>
-                <Card
-                  style={{
-                    marginRight: "3px",
-                    boxShadow: "1px 1px 10px #ffffff",
-                  }}
-                  variant="bordered"
-                  key={i}
-                >
-                  <Text
-                    style={{
-                      color: "white",
-                      fontWeight: "bold",
-                      fontFamily: "SF Pro Display",
-                      fontWeight: "200",
-                      fontSize: "20px",
-                      marginLeft: "3px",
-                    }}
-                  >
-                    {nft.name}
-                  </Text>
-                  <Card.Body css={{ p: 0 }}>
-                    <Card.Image
-                      style={{
-                        maxWidth: "150px",
-                        maxHeight: "150px",
-                        borderRadius: "6%",
-                      }}
-                      src={nft.image}
-                    />
-                  </Card.Body>
-                  <Card.Footer css={{ justifyItems: "flex-start" }}>
-                    <Row wrap="wrap" justify="space-between" align="center">
-                      <Text wrap="wrap">{nft.description}</Text>
-                      <Text style={{ fontSize: "30px" }}>
-                        {nft.price}
-                        <img
-                          src="NFTsolutionLogo.png"
-                          style={{
-                            width: "60px",
-                            height: "25px",
-                            marginTop: "4px",
-                          }}
-                        />
-                      </Text>
-                      <Button
-                        color="gradient"
-                        style={{ fontSize: "20px" }}
-                        onClick={() => handleConfetti(buyNewGoe(nft))}
-                      >
-                        Buy
-                      </Button>
-                    </Row>
-                  </Card.Footer>
-                </Card>
-              </Grid>
-            ))}
-          </Grid.Container>
-        </Container>
-        <Container sm>
-          <Row css={{ marginTop: "$3", marginBottom: "$3" }}>
-            <Text h3>Latest Relisted NFT's on </Text>
-            <img
-              src="bsc.png"
-              style={{ width: "190px", height: "45px", marginLeft: "4px" }}
-            />
-          </Row>
-          <Grid.Container gap={1} justify="flex-start">
-            {bsctlist.slice(0, 9).map((nft, id) => {
-              async function buylistNft() {
-                const web3Modal = new Web3Modal();
-                const connection = await web3Modal.connect();
-                const provider = new ethers.providers.Web3Provider(connection);
-                const signer = provider.getSigner();
-                const contract = new ethers.Contract(
-                  bsctresell,
-                  Resell,
-                  signer
-                );
-                const transaction = await contract.buyNft(nft.tokenId, {
-                  value: nft.cost,
-                });
-                await transaction.wait();
-                router.push("/portal");
-              }
-              return (
-                <Grid xs={3}>
-                  <Card
-                    style={{ boxShadow: "1px 1px 10px #ffffff" }}
-                    variant="bordered"
-                    key={id}
-                  >
-                    <Text
-                      style={{
-                        color: "white",
-                        fontWeight: "bold",
-                        fontFamily: "SF Pro Display",
-                        fontWeight: "200",
-                        fontSize: "20px",
-                        marginLeft: "3px",
-                      }}
-                    >
-                      {nft.name} Token-{nft.tokenId}
-                    </Text>
-                    <Card.Body css={{ p: 0 }}>
-                      <Card.Image
-                        style={{ maxWidth: "150px", borderRadius: "6%" }}
-                        src={nft.img}
-                      />
-                    </Card.Body>
-                    <Card.Footer css={{ justifyItems: "flex-start" }}>
-                      <Row
-                        key={id}
-                        wrap="wrap"
-                        justify="space-between"
-                        align="center"
-                      >
-                        <Text wrap="wrap">{nft.desc}</Text>
-                        <Text style={{ fontSize: "30px" }}>
-                          {nft.val}{" "}
-                          <img
-                            src="n2dr-logo.png"
-                            style={{
-                              width: "60px",
-                              height: "25px",
-                              marginTop: "4px",
-                            }}
-                          />
-                        </Text>
-                        <Button
-                          color="gradient"
-                          style={{ fontSize: "20px" }}
-                          onPress={() => handleConfetti(buylistNft(nft))}
-                        >
-                          Buy
-                        </Button>
-                      </Row>
-                    </Card.Footer>
-                  </Card>
-                </Grid>
-              );
-            })}
-          </Grid.Container>
-        </Container>
-        <Spacer></Spacer>
-        <Container sm>
-          <Row css={{ marginTop: "$3", marginBottom: "$3" }}>
-            <Text h3>Latest NFT's on</Text>
-            <img
-              src="bsc.png"
-              style={{ width: "190px", height: "45px", marginLeft: "4px" }}
-            />
-          </Row>
-          <Grid.Container gap={1} justify="flex-start">
-            {bsctnfts.slice(0, 4).map((nft, i) => (
-              <Grid xs={3}>
-                <Card
-                  style={{
-                    marginRight: "3px",
-                    boxShadow: "1px 1px 10px #ffffff",
-                  }}
-                  variant="bordered"
-                  key={i}
-                >
-                  <Text
-                    style={{
-                      color: "white",
-                      fontWeight: "bold",
-                      fontFamily: "SF Pro Display",
-                      fontWeight: "200",
-                      fontSize: "20px",
-                      marginLeft: "3px",
-                    }}
-                  >
-                    {nft.name}
-                  </Text>
-                  <Card.Body css={{ p: 0 }}>
-                    <Card.Image
-                      style={{
-                        maxWidth: "150px",
-                        maxHeight: "150px",
-                        borderRadius: "6%",
-                      }}
-                      src={nft.image}
-                    />
-                  </Card.Body>
-                  <Card.Footer css={{ justifyItems: "flex-start" }}>
-                    <Row wrap="wrap" justify="space-between" align="center">
-                      <Text wrap="wrap">{nft.description}</Text>
-                      <Text style={{ fontSize: "30px" }}>
-                        {nft.price}
-                        <img
-                          src="NFTsolutionLogo.png"
-                          style={{
-                            width: "60px",
-                            height: "25px",
-                            marginTop: "4px",
-                          }}
-                        />
-                      </Text>
-                      <Button
-                        color="gradient"
-                        style={{ fontSize: "20px" }}
-                        onClick={() => handleConfetti(buyNewBsct(nft))}
                       >
                         Buy
                       </Button>
