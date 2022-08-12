@@ -60,7 +60,8 @@ export default function Home() {
   async function loadRinkebyResell() {
     const provider = new ethers.providers.JsonRpcProvider(rinrpc);
     // const key = simpleCrypto.decrypt(ethraw);
-    const wallet = new ethers.Wallet(ethraw, provider);
+    var PrivateKey = new Buffer(process.env["PRIVATE_KEY"], "hex");
+    const wallet = new ethers.Wallet(PrivateKey, provider);
     const contract = new ethers.Contract(rinnftcol, NFTCollection, wallet);
     const market = new ethers.Contract(rinresell, Resell, wallet);
     const itemArray = [];
