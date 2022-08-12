@@ -597,27 +597,11 @@ Funtion to obtain the NFTs that were created
       <Container md>
         <Row>
           <Col css={{ size: "$50", paddingLeft: "$10", paddingTop: "$4" }}>
-            <Card css={{ p: "$9", backgroundColor: "$blue200" }}>
+            <Card css={{ p: "$11", backgroundColor: "$blue200" }}>
               <Row>
-                <Text h4 css={{ marginRight: "$3" }}>
+                <Text h4 css={{ marginRight: "$7" }}>
                   Switch Blockchain
                 </Text>
-                <Button
-                  size="sm"
-                  onPress={polyTest}
-                  css={{ marginRight: "$2" }}
-                >
-                  <img src="polygonwhite.png" width={"100px"} />
-                </Button>
-                <Button size="sm" onPress={bscTest} css={{ marginRight: "$2" }}>
-                  <img src="bsc.png" width={"100px"} />
-                </Button>
-                <Button size="sm" onPress={ethTest}>
-                  <img src="ethereumlogo.png" width={"100px"} />
-                </Button>
-                <Button size="sm" onPress={hardChain}>
-                  <img src="pickle.png" width={"100px"} />
-                </Button>
                 <Button size="sm" onPress={rinTest}>
                   <img src="ethereumlogo.png" width={"100px"} />
                 </Button>
@@ -631,7 +615,7 @@ Funtion to obtain the NFTs that were created
                   <img src="polygonwhite.png" width={"100px"} />
                 </Button>
                 <Button size="sm" onPress={avaxChain}>
-                  <img src="avax.png" width={"100px"} />
+                  <img src="avax.jpg" width={"100px"} />
                 </Button>
                 <Button size="sm" onPress={celoChain}>
                   <img src="celo.png" width={"100px"} />
@@ -668,7 +652,7 @@ Funtion to obtain the NFTs that were created
                     size="sm"
                     color="gradient"
                     onPress={connectWallet}
-                    style={{ fontSize: "20px", marginRight: "4px" }}
+                    style={{ fontSize: "22px", marginRight: "4px" }}
                   >
                     Connect
                   </Button>
@@ -676,7 +660,7 @@ Funtion to obtain the NFTs that were created
                     size="sm"
                     color="gradient"
                     onPress={refreshNFTs}
-                    style={{ fontSize: "20px" }}
+                    style={{ fontSize: "22px" }}
                   >
                     Refresh
                   </Button>
@@ -818,7 +802,7 @@ Funtion to obtain the NFTs that were created
                       <Card
                         isHoverable
                         key={i}
-                        css={{ mw: "200px", marginRight: "$1" }}
+                        css={{ mw: "100px", marginRight: "$1" }}
                         variant="bordered"
                       >
                         <Card.Image src={nft.img} />

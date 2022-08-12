@@ -2,6 +2,8 @@ import SimpleCrypto from "simple-crypto-js";
 //to encrypt the private key when I send or request in another page. So if someone presses F12 and looks for the private key
 //all they are going to see is an encrypted variable
 
+require("dotenv").config();
+
 export const ethraw = process.env.PRIVATE_KEY;
 
 //*******************PAST ENCRYPTION OF PRIVATE_KEY*****************

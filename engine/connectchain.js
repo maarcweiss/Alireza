@@ -171,7 +171,7 @@ export default function ConnectChain() {
         </Dropdown.Button>
         <Dropdown.Menu
           css={{
-            backgroundColor: "#808080",
+            backgroundColor: "#FFFFFF",
           }}
           aria-label="Single selection actions"
           color="secondary"

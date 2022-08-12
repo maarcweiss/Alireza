@@ -7,9 +7,6 @@ import NFTCollection from "../engine/NFTCollection.json";
 import Resell from "../engine/Resell.json";
 import Market from "../engine/market.json";
 import NFT from "../engine/NFT.json";
-import {} from "dotenv/config";
-require("dotenv").config();
-import { fs } from "fs";
 import {
   Grid,
   Card,
@@ -38,6 +35,7 @@ import confetti from "canvas-confetti";
 import "sf-font";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+require("dotenv").config();
 
 export default function Home() {
   // const [mmlist, MumResellNfts] = useState([]);
@@ -147,7 +145,7 @@ export default function Home() {
       );
       rinsetNfts(items);
     }
-    //Change the last function
+
     async function buyNewRin(nft) {
       const web3Modal = new Web3Modal();
       const connection = await web3Modal.connect();
